@@ -1093,6 +1093,7 @@
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
 
 
+    let isDataLoaded = false;
     let state = {
         tasks: [],
         categories: ['💼 工作', '📖 學習', '🏠 家庭', '❤️ 健康', '🎈 其他'],
@@ -1255,6 +1256,7 @@
                 });
                 if (state.lastPausedTaskId) state.lastPausedTaskId = parseInt(state.lastPausedTaskId);
                 
+                isDataLoaded = true;
                 renderAll();
                 return;
             }
@@ -1264,6 +1266,7 @@
 
         console.log("⚠️ Supabase 無資料或讀取失敗，嘗試從 LocalStorage 載入遺留資料...");
         loadDataLocal();
+        isDataLoaded = true;
         saveData();
         renderAll();
     }
@@ -1373,6 +1376,7 @@
     }
 
     async function saveData() {
+    if (!isDataLoaded) { console.log('Data not loaded yet, skip saving to prevent overwrite.'); return; }
         const sessionRes = await supabaseClient.auth.getSession();
         const session = sessionRes.data.session;
         if (!session) return; // 不儲存未登入的狀態
