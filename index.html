@@ -1235,7 +1235,7 @@
             const { data, error } = await supabaseClient
                 .from('app_state')
                 .select('data')
-                .eq('id', userId)
+                .eq('user_id', userId)
                 .single();
 
             if (error && error.code !== 'PGRST116') {
@@ -1387,7 +1387,7 @@
         try {
             const { error } = await supabaseClient
                 .from('app_state')
-                .upsert({ id: userId, data: state }, { onConflict: 'id' });
+                .upsert({ id: userId, user_id: userId, data: state }, { onConflict: 'id' });
             
             if (error) {
                 console.error('❌ Supabase 寫入失敗:', error);
