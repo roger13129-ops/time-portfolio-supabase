@@ -394,10 +394,7 @@
                 <div style="flex: 1; position:relative;">
                     <input type="text" id="task-notes-input" class="main-input" placeholder="新增備註/筆記 (選填)..." oninput="handleInputAutocomplete(event, 'notes-ac'); handleSearch();" onkeydown="handleInputKey(event)" style="width:100%; box-sizing:border-box;">
                     <div id="notes-ac" class="autocomplete-list"></div>
-                    <div style="display:flex; gap:15px; margin-top:8px; padding-top:8px; border-top: 1px dashed var(--border-color);">
-                        <label class="option-checkbox" style="font-size:12px; color:var(--text-color);"><input type="checkbox" class="creation-marker-cb" value="隨手記" onchange="handleCreationMarkerChange(this)"><span class="checkbox-custom"></span> 📝 隨手記</label>
-                        <label class="option-checkbox" style="font-size:12px; color:var(--text-color);"><input type="checkbox" class="creation-marker-cb" value="參考資料" onchange="handleCreationMarkerChange(this)"><span class="checkbox-custom"></span> 📚 參考資料</label>
-                    </div>
+                    
                 </div>
                 <input type="date" id="task-date-search" class="main-select" onchange="handleSearch()" style="flex: 0.5; min-width: 140px;" title="依日期篩選任務">
             </div>
@@ -1097,7 +1094,7 @@
     let state = {
         tasks: [],
         categories: ['💼 工作', '📖 學習', '🏠 家庭', '❤️ 健康', '🎈 其他'],
-        markerTypes: ['⭐ 重要事項', '🔥 緊急事項', '🚨 插單任務', '🔄 重複型', '📖 學習型', '📝 隨手記', '📚 參考資料'],
+        markerTypes: ['⭐ 重要事項', '🔥 緊急事項', '🔄 重複型', '📖 學習型'],
         activityTypes: ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核'],
         tagGroups: [ { name: '帳務', tags: ['工作'] }, { name: '稅務', tags: ['工作'] }, { name: '盡職調查', tags: ['工作'] }, { name: 'OKR', tags: ['工作'] } ],
         vendorEntities: [], corporateEntities: ['A公司', 'B專案組'],
@@ -1249,6 +1246,11 @@
                 console.log("✅ 成功從 Supabase 讀取資料");
                 const cloudState = typeof data.data === 'string' ? JSON.parse(data.data) : data.data;
                 Object.assign(state, cloudState);
+                // Auto-cleanup deprecated marker types
+                if (state.markerTypes) {
+                    const badMarkers = ["🚨 插單任務", "📝 隨手記", "📚 參考資料"];
+                    state.markerTypes = state.markerTypes.filter(m => !badMarkers.includes(m));
+                }
                 
                 // Keep the migration rules just in case
                 state.tasks.forEach(t => {
@@ -1986,6 +1988,7 @@ if (viewName === 'matrix') renderMatrixBoard();
     }
 
     function renderAll() {
+        renderCreationMarkerCheckboxes();
         renderQuickStartBar();
         if(document.getElementById('view-today').classList.contains('active')) renderTodayBoard();
         if(document.getElementById('view-inbox').classList.contains('active')) renderInboxBoard();
