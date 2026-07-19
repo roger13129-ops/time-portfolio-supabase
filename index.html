@@ -4016,7 +4016,38 @@ if (viewName === 'matrix') renderMatrixBoard();
         state.activityTypes = ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核'];
         saveData(); renderActManager();
     }
+    // === Google 登入與登出邏輯 ===
+    document.getElementById('main-login-btn').addEventListener('click', async () => {
+        const { error } = await supabaseClient.auth.signInWithOAuth({ provider: 'google' });
+        if (error) alert('登入失敗: ' + error.message);
+    });
 
+    document.getElementById('main-logout-btn').addEventListener('click', async () => {
+        await supabaseClient.auth.signOut();
+        location.reload(); 
+    });
+
+    supabaseClient.auth.onAuthStateChange(async (event, session) => {
+        const loginWall = document.getElementById('login-wall');
+        const appContainer = document.getElementById('app-container');
+
+        if (session) {
+            // 已登入：隱藏登入牆，顯示應用程式
+            loginWall.style.display = 'none';
+            appContainer.style.display = 'block';
+            setTimeout(() => { appContainer.style.opacity = '1'; }, 50);
+            
+            console.log("歡迎回來:", session.user.email);
+            
+            await loadData(); 
+            switchView('today');
+        } else {
+            // 未登入：顯示登入牆，隱藏應用程式
+            loginWall.style.display = 'flex';
+            appContainer.style.display = 'none';
+            appContainer.style.opacity = '0';
+        }
+    });
 </script>
 
     <div id="life-param-modal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:9999; justify-content:center; align-items:center;">
