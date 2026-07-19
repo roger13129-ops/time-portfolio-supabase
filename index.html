@@ -265,6 +265,11 @@
 <div id="toast-container"></div>
 
 <div class="container">
+    <div id="auth-container" style="display: flex; justify-content: flex-end; align-items: center; padding-bottom: 15px;">
+        <span id="user-email" style="margin-right: 15px; font-weight: bold; font-size: 14px; color: var(--secondary-color);"></span>
+        <button id="login-btn" class="btn btn-edit" style="border-radius: 20px; padding: 6px 16px;">Google 登入</button>
+        <button id="logout-btn" class="btn btn-danger" style="display:none; border-radius: 20px; padding: 6px 16px;">登出</button>
+    </div>
     <header>
         <div class="brand">
             <div style="display:flex; align-items:center; gap: 10px;">
@@ -1078,9 +1083,8 @@
 
     window.onerror = function(message, source, lineno, colno, error) { if (message === 'Script error.' && lineno === 0) return true; alert('Error: ' + message + '\nLine: ' + lineno); showToast('⚠️ 系統提示: 遇到微小異常，已防呆處理。'); console.error(message, error); };
 
-    window.onload = async function() {
-        await loadData();
-        initTimer();
+    window.onload = function() {
+                initTimer();
         renderCreationMarkerCheckboxes();
         updateSuggLayerFilter();
         applySettings();
@@ -1128,13 +1132,21 @@
         return;
     }
 
-        async function loadData() {
+            async function loadData() {
         console.log("正在從 Supabase 讀取資料...");
+        const sessionRes = await supabaseClient.auth.getSession();
+        const session = sessionRes.data.session;
+        if (!session) {
+            console.log("未登入，略過雲端讀取。");
+            return;
+        }
+        const userId = session.user.id;
+
         try {
             const { data, error } = await supabaseClient
                 .from('app_state')
                 .select('data')
-                .limit(1)
+                .eq('id', userId)
                 .single();
 
             if (error && error.code !== 'PGRST116') {
@@ -1151,6 +1163,8 @@
                     if(t.customMarkers) t.customMarkers = t.customMarkers.map(m => m.includes('常駐型') ? '🔄 重複型' : m);
                 });
                 if (state.lastPausedTaskId) state.lastPausedTaskId = parseInt(state.lastPausedTaskId);
+                
+                renderAll();
                 return;
             }
         } catch(e) {
@@ -1159,10 +1173,9 @@
 
         console.log("⚠️ Supabase 無資料或讀取失敗，嘗試從 LocalStorage 載入遺留資料...");
         loadDataLocal();
-        // 將舊資料遷移至 Supabase
         saveData();
+        renderAll();
     }
-
     function loadDataLocal() {
         let needSave = false;
         const v = '46'; 
@@ -1269,10 +1282,15 @@
     }
 
     async function saveData() {
+        const sessionRes = await supabaseClient.auth.getSession();
+        const session = sessionRes.data.session;
+        if (!session) return; // 不儲存未登入的狀態
+        
+        const userId = session.user.id;
         try {
             const { error } = await supabaseClient
                 .from('app_state')
-                .upsert({ id: '550e8400-e29b-41d4-a716-446655440000', data: state }, { onConflict: 'id' });
+                .upsert({ id: userId, data: state }, { onConflict: 'id' });
             
             if (error) {
                 console.error('❌ Supabase 寫入失敗:', error);
