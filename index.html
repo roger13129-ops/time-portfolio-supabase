@@ -4025,7 +4025,12 @@ if (viewName === 'matrix') renderMatrixBoard();
     }
     // === Google 登入與登出邏輯 ===
     document.getElementById('main-login-btn').addEventListener('click', async () => {
-        const { error } = await supabaseClient.auth.signInWithOAuth({ provider: 'google' });
+        const { error } = await supabaseClient.auth.signInWithOAuth({ 
+            provider: 'google',
+            options: {
+                redirectTo: window.location.origin + window.location.pathname
+            }
+        });
         if (error) alert('登入失敗: ' + error.message);
     });
 
