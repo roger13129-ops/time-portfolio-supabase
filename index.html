@@ -27,21 +27,21 @@
 
         text, .chart-value, .metric-value { font-variant-numeric: tabular-nums; font-family: 'Roboto Mono', 'Inter', monospace, sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-color); padding: 40px 20px; min-height: 100vh; line-height: 1.25; transition: background-color 0.4s ease, color 0.4s ease; }
-        .container { max-width: 1100px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; width: 100%; }
 
-        header { margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px; }
+        header { margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px; width: 100%; }
         .brand h1 { color: var(--primary-color); font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; display: flex; align-items: center; gap: 10px;}
         .brand p { color: var(--muted-text); font-size: 14px; }
         
         .btn-settings { background: none; border: none; font-size: 20px; cursor: pointer; transition: transform 0.2s; }
         .btn-settings:hover { transform: rotate(45deg); }
 
-        nav { display: flex; background: rgba(22, 58, 95, 0.05); padding: 6px; border-radius: 14px; gap: 4px; flex-wrap: wrap;}
+        nav, .action-bar-container { display: flex; background: rgba(22, 58, 95, 0.05); padding: 6px; border-radius: 14px; gap: 4px; flex-wrap: wrap; width: 100%; box-sizing: border-box; }
         nav button { background: none; border: none; padding: 10px 16px; border-radius: 10px; color: var(--secondary-color); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
         nav button.active { background: var(--primary-color); color: #FFFFFF; box-shadow: 0 4px 12px rgba(0,0,0, 0.15); }
-        body.dark-theme nav { background: rgba(255,255,255,0.05); }
+        body.dark-theme nav, body.dark-theme .action-bar-container { background: rgba(255,255,255,0.05); }
 
-        .card { background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 40px; margin-bottom: 30px; transition: background-color 0.4s ease; }
+        .card { background: var(--card-bg); border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 24px 20px; margin-bottom: 30px; transition: background-color 0.4s ease; width: 100%; box-sizing: border-box; }
         .view-panel { display: none; }
         .view-panel.active { display: block; }
 
@@ -361,13 +361,15 @@
 <div class="container">
     
     <header>
-        <div class="brand">
-            <div style="display:flex; align-items:center; gap: 10px;">
-                <h1>Time Portfolio</h1>
-                <button id="main-logout-btn" class="btn-settings" title="登出系統" style="font-size: 16px; margin-left: 5px;">🚪</button>
-                <button class="btn-settings" onclick="openSettingsModal()" title="介面開關設定">⚙️</button>
+        <div class="brand" style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+            <div>
+                <div style="display:flex; align-items:center; gap: 10px;">
+                    <h1>Time Portfolio</h1>
+                    <button class="btn-settings" onclick="openSettingsModal()" title="介面模組開關與顯示設定">⚙️</button>
+                </div>
+                <p>目標是成為時間管理大師 • V4.6</p>
             </div>
-            <p>目標是成為時間管理大師 • V4.6</p>
+            <button id="main-logout-btn" title="登出系統" style="font-size: 14px; font-weight: bold; color: var(--danger-color, #E53935); background: transparent; border: 1.5px solid var(--danger-color, #E53935); padding: 6px 20px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='var(--danger-color, #E53935)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--danger-color, #E53935)';">登出</button>
         </div>
         <nav id="main-nav">
             <button class="nav-btn" id="nav-matrix" onclick="switchView('matrix')">四象限看板</button>
@@ -379,10 +381,21 @@
             <button class="nav-btn" id="nav-analytics" onclick="switchView('analytics')">分析中心</button>
             <button class="nav-btn" id="nav-data" onclick="switchView('data')">資料管理與清算</button>
             <button class="nav-btn" id="nav-contacts" onclick="switchView('contacts')">通訊錄</button>
+            <button class="nav-btn" id="nav-suggestions" onclick="switchView('suggestions')">💡 優化建議</button>
             <button class="nav-btn" id="nav-settings" onclick="switchView('settings')">系統設定</button>
-            <button class="nav-btn" id="nav-suggestions" onclick="switchView('suggestions')">待優化項目</button>
-            </nav>
+        </nav>
     </header>
+
+    <div class="action-bar-container" id="global-action-card" style="justify-content: space-between; align-items: center; margin-bottom: 15px;">
+        <div class="mode-switch-container" style="margin: 0;">
+            <span class="mode-label" id="label-work" onclick="setWorkMode('work')">💼 工作</span>
+            <div class="toggle-switch" id="mode-toggle-track" onclick="toggleWorkMode()">
+                <div class="toggle-thumb"></div>
+            </div>
+            <span class="mode-label" id="label-nonwork" onclick="setWorkMode('non-work')">🏖️ 非工作</span>
+        </div>
+        <div class="quick-start-bar" id="quick-start-bar-container" style="margin: 0;"></div>
+    </div>
 
     <div class="card" id="global-input-card">
         <div class="input-group">
@@ -392,7 +405,7 @@
                 <div id="autocomplete-dropdown" class="autocomplete-list"></div>
 
                 <div style="flex: 1; position:relative;">
-                    <input type="text" id="task-notes-input" class="main-input" placeholder="新增備註/筆記 (選填)..." oninput="handleInputAutocomplete(event, 'notes-ac'); handleSearch();" onkeydown="handleInputKey(event)" style="width:100%; box-sizing:border-box;">
+                    <input type="text" id="task-notes-input" class="main-input" placeholder="補充備註/筆記 (選填)..." oninput="handleInputAutocomplete(event, 'notes-ac'); handleSearch();" onkeydown="handleInputKey(event)" style="width:100%; box-sizing:border-box;">
                     <div id="notes-ac" class="autocomplete-list"></div>
                     
                 </div>
@@ -400,28 +413,12 @@
             </div>
             <div class="input-options" style="width: 100%; display: flex; justify-content: space-between;">
                 <div id="creation-marker-options" style="display:flex; gap:15px; align-items:center; flex-wrap:wrap;"></div>
-                
-                <div class="quick-start-bar" id="quick-start-bar-container"></div>
             </div>
         </div>
         
         <div id="global-filter-panel" style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed var(--border-color);">
-            <div class="filter-split-container" style="margin-bottom: 0;">
-                <div class="filter-left">
-                    <div style="font-size: 13px; font-weight: bold; color: var(--secondary-color); margin-bottom: 8px;">🔄 模式切換</div>
-                    <div class="mode-switch-container">
-                        <span class="mode-label" id="label-work" onclick="setWorkMode('work')">💼 工作</span>
-                        <div class="toggle-switch" id="mode-toggle-track" onclick="toggleWorkMode()">
-                            <div class="toggle-thumb"></div>
-                        </div>
-                        <span class="mode-label" id="label-nonwork" onclick="setWorkMode('non-work')">🏖️ 非工作</span>
-                    </div>
-                </div>
-                <div class="filter-right">
-                    <div style="font-size: 13px; font-weight: bold; color: var(--secondary-color); margin-bottom: 8px;">🏷️ 標籤篩選</div>
-                    <div id="active-tag-filters" class="tag-filter-group tag-filters-narrow"></div>
-                </div>
-            </div>
+            <div style="font-size: 13px; font-weight: bold; color: var(--secondary-color); margin-bottom: 8px;">🏷️ 標籤篩選</div>
+            <div id="active-tag-filters" class="tag-filter-group"></div>
         </div>
     </div>
 
@@ -463,7 +460,7 @@
                 <div style="min-width: 0; box-sizing: border-box;">
                     <div id="subtask-detail-area" style="display:none;">
                         <h3 id="subtask-target-name" style="color:var(--primary-color); margin-bottom: 15px; font-size: 18px;"></h3>
-                        <div style="display:flex; gap:10px; margin-bottom: 20px; flex-wrap:wrap; position:relative;">
+                        <div style="display:flex; gap:10px; margin-bottom: 20px; flex-wrap:wrap; position:relative; align-items:center;">
                             <input type="text" id="new-subtask-name" class="inline-input" placeholder="名稱 (@交辦 !法人 #標籤)..." style="flex:2; min-width: 150px;" oninput="handleSubtaskInputAutocomplete(event)" onkeydown="if(event.key === 'Enter') addSubtask()">
                             <div id="subtask-autocomplete-dropdown" class="autocomplete-list" style="top:100%;"></div>
                             
@@ -471,12 +468,15 @@
                                 <input type="text" id="new-subtask-tips" class="inline-input" placeholder="備註 (Tips/注意事項)..." style="width:100%; box-sizing:border-box;" oninput="handleInputAutocomplete(event, 'subtask-tips-ac')" onkeydown="if(event.key === 'Enter') addSubtask()">
                                 <div id="subtask-tips-ac" class="autocomplete-list" style="top:100%;"></div>
                             </div>
-                            <input type="number" id="new-subtask-time" class="inline-input" placeholder="預估分" style="flex:0.5; min-width: 70px;" onkeydown="if(event.key === 'Enter') addSubtask()">
-                            <button class="btn btn-complete" onclick="addSubtask()">➕ 新增</button>
-                            <button class="btn btn-edit" onclick="saveCurrentSubtasksAsTemplate()" title="將目前已拆解的子任務存為模板">🛎️ 存為模板</button>
-                            <div style="width:1px; background:var(--border-color); margin: 0 5px;"></div>
-                            <select id="apply-template-select" class="inline-input" style="flex:1; min-width: 120px;"><option value="">請選擇要導入的模板...</option></select>
-                            <button class="btn btn-complete" onclick="applyTemplateToCurrentTask()" title="將選擇的模板內容加入目前母任務中">📥 導入模板</button>
+                            <input type="number" id="new-subtask-time" class="inline-input" placeholder="預估分" style="flex:0.5; min-width: 60px;" onkeydown="if(event.key === 'Enter') addSubtask()">
+                            <button class="btn btn-complete" onclick="addSubtask()" style="white-space:nowrap;">➕ 新增</button>
+                            
+                            <div style="display:flex; gap:10px; flex: 1 1 320px; align-items:center; justify-content: flex-end;">
+                                <button class="btn btn-edit" onclick="saveCurrentSubtasksAsTemplate()" title="將目前已拆解的子任務存為模板" style="white-space:nowrap;">🛎️ 存為模板</button>
+                                <div style="width:1px; height:24px; background:var(--border-color); margin: 0 2px;"></div>
+                                <select id="apply-template-select" class="inline-input" style="flex:1; min-width: 120px;"><option value="">請選擇要導入的模板...</option></select>
+                                <button class="btn btn-complete" onclick="applyTemplateToCurrentTask()" title="將選擇的模板內容加入目前母任務中" style="white-space:nowrap;">📥 導入模板</button>
+                            </div>
                         </div>
                         <div id="subtasks-list-container" class="task-list"></div>
                         
@@ -704,7 +704,7 @@
             <div class="section-title">🛠 自訂分析類別與系統環境設定面板</div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 15px;">
                 
-                <div style="background: var(--input-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
+                <div style="display: none; background: var(--input-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color); grid-column: 1 / -1;">
                     <div class="flow-title">⚖️ 模式類別歸屬設定 (工作 vs 非工作)</div>
                     <div style="display: flex; gap: 20px; margin-top: 15px; flex-wrap: wrap;">
                         <div style="flex: 1; border: 1px dashed var(--primary-color); padding: 15px; border-radius: 12px; background: var(--card-bg); min-width: 250px;">
@@ -735,7 +735,7 @@
                     </div>
                 </div>
 
-                <div style="background: var(--input-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color);">
+                <div style="display: none; background: var(--input-bg); padding: 20px; border-radius: 16px; border: 1px solid var(--border-color);">
                     <div class="flow-title">📂 面向類別管理</div>
                     <div style="display: flex; gap: 10px;">
                         <input type="text" id="new-cat-input" class="inline-input" placeholder="新增類別 (例: 🏀 運動)" style="flex:1;">
@@ -808,7 +808,7 @@
                         <option value="all">全部價值</option><option value="investment">🚀 投資型</option><option value="maintenance">⚙️ 維持型</option><option value="consumption">🛑 消耗型</option><option value="recovery">☕ 恢復型</option><option value="unclassified">👤 未分類</option>
                     </select>
                 </div>
-                <div><div style="font-size:13px; font-weight:bold; color:var(--secondary-color); margin-bottom:4px;">💼 型態篩選</div><select id="hist-filter-act" class="filter-select" onchange="changeHistoryFilter()"><option value="all">全部型態</option></select></div>
+                <div><div style="font-size:13px; font-weight:bold; color:var(--secondary-color); margin-bottom:4px;">🎭 型態篩選</div><select id="hist-filter-act" class="filter-select" onchange="changeHistoryFilter()"><option value="all">全部型態</option></select></div>
                 <div style="display: flex; gap: 8px; align-items: flex-end; flex-wrap: wrap;">
                     <div style="display:flex; flex-direction:column;"><div style="font-size:13px; font-weight:bold; color:var(--secondary-color); margin-bottom:4px;">📅 時間篩選</div><select id="hist-filter-time" class="filter-select" onchange="changeHistoryFilter()"><option value="today">今天</option><option value="yesterday">昨天</option><option value="week">本週</option><option value="lastWeek">上週</option><option value="month">本月</option><option value="lastMonth">上月</option><option value="all">全部歷史</option><option value="custom">自訂期間</option></select></div>
                     <span id="hist-custom-date" style="display:none; align-items:center; gap:5px; margin-bottom:2px;"><input type="date" id="hist-start-date" class="filter-select" onchange="changeHistoryFilter()"><span>~</span><input type="date" id="hist-end-date" class="filter-select" onchange="changeHistoryFilter()"></span>
@@ -902,7 +902,7 @@
 
 <div class="modal-overlay" id="settings-modal">
     <div class="modal-card" style="max-width: 450px;">
-        <div class="modal-header"><h3>⚙️ 介面開關設定</h3><p>客製化您的主導覽列看板顯示</p></div>
+        <div class="modal-header"><h3>⚙️ 介面模組開關與顯示設定</h3><p>客製化您的主導覽列看板顯示</p></div>
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 15px;">
             <label class="option-checkbox" style="font-size:15px;"><input type="checkbox" id="set-show-today" onchange="toggleViewSetting('today', this.checked)"><span class="checkbox-custom"></span> 今日作戰板</label>
             <label class="option-checkbox" style="font-size:15px;"><input type="checkbox" id="set-show-matrix" onchange="toggleViewSetting('matrix', this.checked)"><span class="checkbox-custom"></span> 四象限看板</label>
@@ -1026,6 +1026,11 @@
         <div class="modal-header"><h3>✏️ 調整歷史數據與特殊標示</h3></div>
         <input type="hidden" id="edit-hist-id">
         <div style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;">
+            <div style="position:relative;">
+                <label style="font-size: 13px; font-weight: bold; color: var(--secondary-color);">任務名稱:</label>
+                <input type="text" id="edit-hist-name" class="inline-input" style="width:100%; margin-top: 5px;" placeholder="任務名稱 (支援 #標籤)..." oninput="handleInputAutocomplete(event, 'edit-hist-name-ac')">
+                <div id="edit-hist-name-ac" class="autocomplete-list" style="top:100%;"></div>
+            </div>
             <div style="display:flex; gap:15px; flex-wrap:wrap;">
                 <div style="flex:1;">
                     <label style="font-size: 13px; font-weight: bold; color: var(--secondary-color);">結算日期:</label>
@@ -1093,9 +1098,9 @@
     let isDataLoaded = false;
     let state = {
         tasks: [],
-        categories: ['💼 工作', '📖 學習', '🏠 家庭', '❤️ 健康', '🎈 其他'],
+        categories: ['💼 工作', '🏖️ 非工作'],
         markerTypes: ['⭐ 重要事項', '🔥 緊急事項', '🔄 重複型', '📖 學習型'],
-        activityTypes: ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核'],
+        activityTypes: ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核', '🗣️ 諮詢', '🚌 通勤', '🧹 家務', '🛏️ 睡眠', '🚰 盥洗'],
         tagGroups: [ { name: '帳務', tags: ['工作'] }, { name: '稅務', tags: ['工作'] }, { name: '盡職調查', tags: ['工作'] }, { name: 'OKR', tags: ['工作'] } ],
         vendorEntities: [], corporateEntities: ['A公司', 'B專案組'],
         contacts: [],
@@ -1190,13 +1195,17 @@
         let now = new Date();
         document.getElementById('calendar-month-picker').value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
         
-        let defaultView = 'today';
-        if (state.settings.showToday === false) {
-            const views = ['matrix', 'inbox', 'lifecal', 'calendar', 'analytics', 'data', 'contacts', 'subtasks', 'suggestions', 'settings'];
-            for (let v of views) { 
+        let defaultView = 'matrix';
+        const views = ['matrix', 'today', 'inbox', 'subtasks', 'lifecal', 'calendar', 'analytics', 'data', 'contacts', 'settings', 'suggestions'];
+        for (let v of views) { 
+            let isVisible = false;
+            if (v === 'today') {
+                isVisible = (state.settings && state.settings.showToday === true);
+            } else {
                 let capV = v.charAt(0).toUpperCase() + v.slice(1);
-                if (state.settings['show' + capV] !== false) { defaultView = v; break; } 
+                isVisible = !(state.settings && state.settings['show' + capV] === false);
             }
+            if (isVisible) { defaultView = v; break; } 
         }
         
         setTimeout(() => {
@@ -1221,7 +1230,41 @@
         return;
     }
 
-            async function loadData() {
+    function migrateCategoriesToNonWork() {
+        let migrated = false;
+
+        if (!state.quickButtons || state.quickButtons.find(b => b.name.includes('進食'))) {
+            state.quickButtons = [
+                { id: 'btn-qs-email', name: '📧 郵件', defaultName: '收發信件', activity: '📧 行政', mode: 'work', color: '#7E22CE', valType: 'maintenance' },
+                { id: 'btn-qs-comm', name: '💬 溝通', defaultName: '溝通與討論', activity: '👥 會議/討論', mode: 'work', color: '#1A73E8', valType: 'maintenance' },
+                { id: 'btn-qs-interrupt', name: '🚨 插單', defaultName: '處理突發狀況', activity: '🗣️ 諮詢', mode: 'work', color: '#D32F2F', valType: 'consumption' },
+                { id: 'btn-qs-move', name: '🚶 移動', defaultName: '通勤', activity: '🚌 通勤', mode: 'work', color: '#757575', valType: 'maintenance' },
+                { id: 'btn-qs-chore', name: '🧹 家務', defaultName: '家務', activity: '🧹 家務', mode: 'non-work', color: '#8D6E63', valType: 'maintenance' },
+                { id: 'btn-qs-wash', name: '🚰 盥洗', defaultName: '盥洗', activity: '🚰 盥洗', mode: 'non-work', color: '#00BCD4', valType: 'maintenance' },
+                { id: 'btn-qs-sleep', name: '💤 睡眠', defaultName: '睡眠', activity: '🛏️ 睡眠', mode: 'non-work', color: '#3F51B5', valType: 'maintenance' }
+            ];
+            migrated = true;
+        }
+
+        state.tasks.forEach(t => {
+            if (t.category !== '💼 工作' && t.category !== '🏖️ 非工作') {
+                t.category = '🏖️ 非工作';
+                migrated = true;
+            }
+        });
+        
+        if (!state.categories.includes('🏖️ 非工作') || state.categories.length > 2) {
+            state.categories = ['💼 工作', '🏖️ 非工作'];
+            state.categoryGroups = { work: ['💼 工作'], nonWork: ['🏖️ 非工作'] };
+            migrated = true;
+        }
+        if (migrated) {
+            console.log("✅ Categories migrated to Work/Non-Work.");
+            saveData();
+        }
+    }
+
+    async function loadData() {
         console.log("正在從 Supabase 讀取資料...");
         const sessionRes = await supabaseClient.auth.getSession();
         const session = sessionRes.data.session;
@@ -1259,6 +1302,8 @@
                 if (state.lastPausedTaskId) state.lastPausedTaskId = parseInt(state.lastPausedTaskId);
                 
                 isDataLoaded = true;
+                migrateCategoriesToNonWork();
+                applySettings(); // Fix: Apply view settings on load
                 renderAll();
                 return;
             }
@@ -1269,7 +1314,9 @@
         console.log("⚠️ Supabase 無資料或讀取失敗，嘗試從 LocalStorage 載入遺留資料...");
         loadDataLocal();
         isDataLoaded = true;
+        migrateCategoriesToNonWork();
         saveData();
+        applySettings(); // Fix: Apply view settings on load
         renderAll();
     }
     function loadDataLocal() {
@@ -1399,8 +1446,21 @@
         }
     }
 
+    function renderQuickStartBar() {
+        const container = document.getElementById('quick-start-bar-container');
+        if(!container) return;
+        
+        let html = '';
+        state.quickButtons.forEach(qb => {
+            html += `<button id="${qb.id}" class="btn-qs" onclick="toggleQuickTask('${qb.id}')" title="點擊啟動/結算" style="color: ${qb.color};">${qb.name}</button>`;
+        });
+        html += `<button id="btn-rest-toggle" class="btn" onclick="toggleRest()" style="background:var(--success-color); color:white; font-size: 13px; padding: 6px 12px; margin-left: 5px;">☕ 進入休息模式</button>`;
+        container.innerHTML = html;
+        updateQuickButtonsUI();
+    }
+
     function openSettingsModal() {
-        document.getElementById('set-show-today').checked = state.settings.showToday !== false;
+        document.getElementById('set-show-today').checked = state.settings.showToday === true;
         document.getElementById('set-show-matrix').checked = state.settings.showMatrix !== false;
         document.getElementById('set-show-inbox').checked = state.settings.showInbox !== false;
         document.getElementById('set-show-subtasks').checked = state.settings.showSubtasks !== false;
@@ -1424,7 +1484,13 @@
         const maps = ['today', 'matrix', 'inbox', 'subtasks', 'lifecal', 'calendar', 'analytics', 'data', 'contacts', 'suggestions'];
         maps.forEach(view => {
             const btn = document.getElementById('nav-' + view);
-            if(btn) btn.style.display = state.settings['show' + view.charAt(0).toUpperCase() + view.slice(1)] !== false ? 'block' : 'none';
+            if(btn) {
+                if (view === 'today') {
+                    btn.style.display = state.settings.showToday === true ? 'block' : 'none';
+                } else {
+                    btn.style.display = state.settings['show' + view.charAt(0).toUpperCase() + view.slice(1)] !== false ? 'block' : 'none';
+                }
+            }
         });
     }
 
@@ -1453,14 +1519,17 @@
         renderAll();
     }
 
-    function toggleQuickTask(type, defaultName, activity, btnId) {
+    function toggleQuickTask(id) {
         let activeQT = state.tasks.find(t => t.status === 'active' && t.isQuickTask);
         
         if (activeQT) {
             pauseTask(activeQT.id);
             openQuickFinishModal(activeQT.id);
-            if(activeQT.quickType === type) return; 
+            if(activeQT.quickType === id) return; 
         }
+
+        const qb = state.quickButtons.find(b => b.id === id);
+        if (!qb) return;
 
         if (state.isResting) stopRest();
         
@@ -1474,16 +1543,15 @@
             } 
         });
         
-        let lastTask = state.tasks.find(t => t.id === state.lastPausedTaskId);
-        let defCat = lastTask ? (lastTask.category || state.categories[0] || '💼 工作') : (state.categories[0] || '💼 工作');
+        let defCat = qb.mode === 'work' ? (state.categories[0] || '💼 工作') : (state.categories.includes('🏖️ 非工作') ? '🏖️ 非工作' : state.categories[0] || '💼 工作');
 
         const newTask = {
-            id: Date.now(), name: defaultName, notes: "", status: 'active', lastTick: Date.now(), timeSpent: 0, 
-            createdAt: Date.now(), valueType: 'unclassified', category: defCat, dayType: 'auto', customMarkers: [], activity: activity, quickType: type, isQuickTask: true, subtasks: []
+            id: Date.now(), name: qb.defaultName, notes: "", status: 'active', lastTick: Date.now(), timeSpent: 0, 
+            createdAt: Date.now(), valueType: qb.valType || 'unclassified', category: defCat, dayType: 'auto', customMarkers: [], activity: qb.activity, quickType: id, isQuickTask: true, subtasks: [], workMode: qb.mode
         };
-        if(type === 'interrupt') newTask.customMarkers.push(state.markerTypes.find(m=>m.includes('插單'))||'🚨 插單任務');
+        if(id === 'btn-qs-interrupt') newTask.customMarkers.push(state.markerTypes.find(m=>m.includes('插單'))||'🚨 插單任務');
         state.tasks.push(newTask);
-        saveData(); renderAll(); updateQuickButtonsUI(); showToast(`🚀 已啟動快捷計時: ${defaultName}`);
+        saveData(); renderAll(); updateQuickButtonsUI(); showToast(`🚀 已啟動快捷計時: ${qb.defaultName}`);
     }
 
     function updateQuickButtonsUI() {
@@ -1502,9 +1570,7 @@
         
         let html = '';
         state.quickButtons.forEach(qb => {
-            if (qb.mode === 'both' || qb.mode === state.workMode) {
-                html += `<button id="${qb.id}" class="btn-qs" onclick="toggleQuickTask('${qb.id}', '${qb.defaultName}', '${qb.activity}', '${qb.id}')" title="點擊開始/結束" style="color: ${qb.color};">${qb.name}</button>`;
-            }
+            html += `<button id="${qb.id}" class="btn-qs" onclick="toggleQuickTask('${qb.id}')" title="點擊啟動/結算" style="color: ${qb.color};">${qb.name}</button>`;
         });
         html += `<button id="btn-rest-toggle" class="btn" onclick="toggleRest()" style="background:var(--success-color); color:white; font-size: 13px; padding: 6px 12px; margin-left: 5px;">☕ 進入休息模式</button>`;
         container.innerHTML = html;
@@ -1604,14 +1670,9 @@
         const btn = document.getElementById('btn-rest-toggle');
         if (btn) { btn.style.background = "var(--success-color)"; btn.innerText = "☕ 進入休息模式"; }
         if (state.restTime > 0) {
-            let todayStr = formatDateString(new Date());
-            let restLog = state.tasks.find(t => t.isRestLog && t.status === 'completed' && formatDateString(new Date(t.completedAt || t.createdAt)) === todayStr);
-            if (restLog) { restLog.timeSpent = Number(restLog.timeSpent || 0) + state.restTime; } 
-            else {
-                let defaultCat = state.categories.includes('恢復型') ? '恢復型' : (state.categories[0] || '💼 工作');
-                state.tasks.push({ id: Date.now(), name: '☕ 休息充電', category: defaultCat, timeSpent: state.restTime, status: 'completed', completedAt: Date.now(), isRestLog: true, dayType: 'auto', valueType: 'recovery', activity: '💺 休息', customMarkers: [] });
-            }
-            state.restTime = 0; showToast('⚡ 休息結束，已記錄時數');
+            let defaultCat = state.categories.includes('🏖️ 非工作') ? '🏖️ 非工作' : (state.categories[0] || '💼 工作');
+            state.tasks.push({ id: Date.now(), name: '☕ 休息充電', category: defaultCat, timeSpent: state.restTime, status: 'completed', completedAt: Date.now(), isRestLog: true, dayType: 'auto', valueType: 'recovery', activity: '💺 休息', customMarkers: [] });
+            state.restTime = 0; showToast('⚡ 休息結束，已獨立記錄時數');
         }
         saveData(); renderAll(); updateQuickButtonsUI();
     }
@@ -1619,9 +1680,26 @@
     function renderCreationMarkerCheckboxes() {
         const container = document.getElementById('creation-marker-options');
         if (container) { 
-            let html = state.markerTypes.map(m => {
-                return `<label class="option-checkbox"><input type="checkbox" class="creation-marker-cb" value="${m}" onchange="handleCreationMarkerChange(this)"><span class="checkbox-custom"></span> ${m}</label>`;
-            }).join(''); 
+            const checkedValues = Array.from(document.querySelectorAll('.creation-marker-cb:checked')).map(cb => cb.value);
+            const isInboxView = document.getElementById('view-inbox') && document.getElementById('view-inbox').classList.contains('active');
+            let html = '';
+            
+            if (!isInboxView) {
+                html += state.markerTypes.map(m => {
+                    const isChecked = checkedValues.includes(m) ? 'checked' : '';
+                    return `<label class="option-checkbox"><input type="checkbox" class="creation-marker-cb" value="${m}" onchange="handleCreationMarkerChange(this)" ${isChecked}><span class="checkbox-custom"></span> ${m}</label>`;
+                }).join(''); 
+                if (state.markerTypes.length > 0) {
+                    html += `<div style="width:1px; height:20px; background:var(--border-color); margin:0 5px;"></div>`;
+                }
+            }
+            
+            const inboxChecked = checkedValues.includes("📥 隨手記") ? 'checked' : '';
+            const refChecked = checkedValues.includes("📚 參考資料") ? 'checked' : '';
+            
+            html += `<label class="option-checkbox" style="color:var(--secondary-color);"><input type="checkbox" class="creation-marker-cb" value="📥 隨手記" onchange="handleCreationMarkerChange(this)" ${inboxChecked}><span class="checkbox-custom"></span> 📥 隨手記</label>`;
+            html += `<label class="option-checkbox" style="color:var(--secondary-color);"><input type="checkbox" class="creation-marker-cb" value="📚 參考資料" onchange="handleCreationMarkerChange(this)" ${refChecked}><span class="checkbox-custom"></span> 📚 參考資料</label>`;
+            
             container.innerHTML = html;
         }
     }
@@ -1737,7 +1815,7 @@
         const newTask = {
             id: Date.now(), name: parsed.text, notes: notesEl.value.trim(), isPinned: false, status: 'pending',
             timeSpent: 0, createdAt: Date.now(), completedAt: null, valueType: 'unclassified', category: selectedCat,
-            dayType: 'auto', trackingTarget: parsed.target, trackingTime: finalDate, assigner: '', customMarkers: selectedMarkers, activity: parsed.activity, corporateEntity: parsed.corpEntity, subtasks: []
+            dayType: 'auto', trackingTarget: parsed.target, trackingTime: finalDate, assigner: '', customMarkers: selectedMarkers, activity: parsed.activity, corporateEntity: parsed.corpEntity, subtasks: [], workMode: state.workMode
         };
 
         enforceUrgentMarker(newTask);
@@ -1863,6 +1941,7 @@
     function openHistoryEdit(id) {
         const task = state.tasks.find(t => t.id === id); if(!task) return;
         document.getElementById('edit-hist-id').value = task.id;
+        document.getElementById('edit-hist-name').value = task.name || '';
         document.getElementById('edit-hist-date').value = formatDateString(new Date(task.completedAt || task.createdAt || Date.now()));
         document.getElementById('edit-hist-time').value = Math.round((task.timeSpent || 0) / 60);
         document.getElementById('edit-hist-val').value = task.valueType || 'unclassified';
@@ -1913,6 +1992,9 @@
         const id = parseInt(document.getElementById('edit-hist-id').value);
         const task = state.tasks.find(t => t.id === id); if(!task) return;
         
+        const newName = document.getElementById('edit-hist-name').value.trim();
+        if(newName) task.name = newName;
+        
         task.timeSpent = parseInt(document.getElementById('edit-hist-time').value) * 60;
         task.valueType = document.getElementById('edit-hist-val').value;
         task.activity = document.getElementById('edit-hist-act').value;
@@ -1953,10 +2035,16 @@
         const targetView = document.getElementById(`view-${viewName}`); if(targetView) targetView.classList.add('active');
         
         const inputCard = document.getElementById('global-input-card'); const filterPanel = document.getElementById('global-filter-panel');
-        if (['today', 'inbox', 'matrix', 'calendar', 'subtasks'].includes(viewName)) inputCard.style.display = 'block'; else inputCard.style.display = 'none';
+        const targetPanels = ['today', 'inbox', 'matrix', 'calendar', 'subtasks'];
+        if (targetPanels.includes(viewName)) {
+            inputCard.style.display = 'block';
+        } else {
+            inputCard.style.display = 'none';
+        }
         
         const cm = document.getElementById('creation-marker-options');
-        if(cm) cm.style.display = viewName === 'inbox' ? 'none' : 'flex';
+        if(cm) cm.style.display = 'flex';
+        renderCreationMarkerCheckboxes();
 
         if (filterPanel) { if (['today', 'matrix', 'inbox', 'subtasks'].includes(viewName)) filterPanel.style.display = 'block'; else filterPanel.style.display = 'none'; }
         
@@ -1981,6 +2069,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             renderCategorySettings(); 
             renderCustomCatManagerPool();
             renderTagGroupManager();
+            renderQuickButtonsManager();
         }
         if (viewName === 'lifecal') {
             renderLifeCalendarGrid();
@@ -2003,6 +2092,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             renderCategorySettings(); 
             renderCustomCatManagerPool();
             renderTagGroupManager();
+            renderQuickButtonsManager();
         }
         updateQuickButtonsUI();
     }
@@ -2351,6 +2441,12 @@ if (viewName === 'matrix') renderMatrixBoard();
         container.innerHTML = '';
         let tpls = Object.keys(state.settings.subtaskTemplates);
         tpls = tpls.filter(k => { const m = getTemplateMode(k); return m === 'both' || m === state.workMode; });
+        
+        if (currentSelectedTemplateName && !tpls.includes(currentSelectedTemplateName)) {
+            currentSelectedTemplateName = null;
+        }
+        renderTemplateDetail();
+        
         const applySel = document.getElementById('apply-template-select');
         if(applySel) {
             applySel.innerHTML = '<option value="">請選擇要導入的模板...</option>';
@@ -2540,6 +2636,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             status: 'pending',
             createdAt: Date.now(),
             timeSpent: 0,
+            workMode: state.workMode,
             subtasks: subtasks.map(st => ({
                 id: Date.now() + Math.random(),
                 name: st.name,
@@ -2572,7 +2669,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             let safeName = task.name.replace(/(?:#|🏷️)([^\s#🏷️]+)/g, '').trim();
             let isSelected = task.id === currentSelectedParentTaskId;
             container.innerHTML += `
-                <div class="task-item ${isSelected ? 'subtask-parent-active' : ''}" style="box-sizing: border-box; width: 100%; margin: 0 auto 8px auto; padding: 8px 12px; cursor:pointer; background:${isSelected ? 'var(--input-bg)' : 'var(--card-bg)'}; border-left-color:${isSelected ? 'var(--primary-color)' : 'transparent'};" onclick="selectSubtaskParent(${task.id})">
+                <div class="task-item ${isSelected ? 'subtask-parent-active' : ''}" style="flex-shrink: 0; box-sizing: border-box; width: 100%; margin: 0 auto 8px auto; padding: 8px 12px; cursor:pointer; background:${isSelected ? 'var(--input-bg)' : 'var(--card-bg)'}; border-left-color:${isSelected ? 'var(--primary-color)' : 'transparent'};" onclick="selectSubtaskParent(${task.id})">
                     <div style="font-weight:600; font-size:13px; color:${isSelected ? 'var(--primary-color)' : 'var(--text-color)'};">${safeName}</div>
                     <div style="font-size:11px; color:var(--muted-text); margin-top:1px;">${task.subtasks && task.subtasks.length > 0 ? `已建立 ${task.subtasks.length} 項子任務` : '尚未拆解'}</div>
                 </div>
@@ -3039,8 +3136,8 @@ if (viewName === 'matrix') renderMatrixBoard();
                 <div class="calendar-cell" style="${isToday} background: ${heatBg};" onclick="showCalendarDayDetails('${currentStr}')">
                     <div style="font-weight:bold; font-size:14px; opacity:0.9; margin-bottom:5px; color:${totalHrs > 5 ? 'white' : 'var(--text-color)'};">${i}</div>
                     <div style="font-size:10px; line-height:1.2; text-align:right; margin-top:auto;">
-                        ${workHrs > 0 ? `<div style="color:${totalHrs > 5 ? '#E3F2FD' : 'var(--primary-color)'};">💼 ${workHrs.toFixed(1)}</div>` : ''}
-                        ${nwHrs > 0 ? `<div style="color:${totalHrs > 5 ? '#FFF3E0' : '#E65100'};">🏖️ ${nwHrs.toFixed(1)}</div>` : ''}
+                        ${workHrs >= 0.05 ? `<div style="color:${totalHrs > 5 ? '#E3F2FD' : 'var(--primary-color)'};">💼 ${workHrs.toFixed(1)}</div>` : ''}
+                        ${nwHrs >= 0.05 ? `<div style="color:${totalHrs > 5 ? '#FFF3E0' : '#E65100'};">🏖️ ${nwHrs.toFixed(1)}</div>` : ''}
                         ${dailyNote ? '📝' : ''}
                     </div>
                 </div>
@@ -3064,7 +3161,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             </div>
         `;
 
-        let filtered = state.tasks.filter(t => formatDateString(new Date(t.completedAt || t.createdAt || Date.now())) === dateStr && !(t.customMarkers || []).some(m => m.includes('隨手記') || m.includes('參考資料')));
+        let filtered = state.tasks.filter(t => formatDateString(new Date(t.completedAt || t.createdAt || Date.now())) === dateStr && !(t.customMarkers || []).some(m => m.includes('隨手記') || m.includes('參考資料')) && (t.timeSpent > 0 || t.status === 'active'));
         filtered.sort((a,b) => (a.completedAt||a.createdAt) - (b.completedAt||b.createdAt));
 
         const totalHrs = filtered.reduce((acc, t) => acc + (t.timeSpent || 0), 0) / 3600;
@@ -3243,12 +3340,13 @@ if (viewName === 'matrix') renderMatrixBoard();
 
     function restoreDefaultQuickButtons() {
         state.quickButtons = [
-            { id: 'btn-qs-email', name: '📧 郵件', defaultName: '收發電子郵件', activity: '📧 行政', mode: 'work', color: '#7E22CE' },
-            { id: 'btn-qs-comm', name: '💬 溝通', defaultName: '溝通與討論', activity: '👥 會議/討論', mode: 'work', color: '#1A73E8' },
-            { id: 'btn-qs-interrupt', name: '🚨 插單', defaultName: '處理臨時插單', activity: '🎯 核心產出', mode: 'work', color: '#D32F2F' },
-            { id: 'btn-qs-move', name: '🚶 移動', defaultName: '移動', activity: '', mode: 'non-work', color: '#757575' },
-            { id: 'btn-qs-chore', name: '🧹 家務', defaultName: '家務', activity: '', mode: 'non-work', color: '#8D6E63' },
-            { id: 'btn-qs-sleep', name: '💤 睡眠', defaultName: '睡眠', activity: '💤 睡眠', mode: 'non-work', color: '#3F51B5' }
+            { id: 'btn-qs-email', name: '📧 郵件', defaultName: '收發電子郵件', activity: '📧 行政', mode: 'work', color: '#7E22CE', valType: 'maintenance' },
+            { id: 'btn-qs-comm', name: '💬 溝通', defaultName: '溝通與討論', activity: '👥 會議/討論', mode: 'work', color: '#1A73E8', valType: 'maintenance' },
+            { id: 'btn-qs-interrupt', name: '🚨 插單', defaultName: '處理臨時插單', activity: '🗣️ 諮詢', mode: 'work', color: '#D32F2F', valType: 'consumption' },
+            { id: 'btn-qs-move', name: '🚶 移動', defaultName: '通勤', activity: '🚌 通勤', mode: 'work', color: '#757575', valType: 'maintenance' },
+            { id: 'btn-qs-chore', name: '🧹 家務', defaultName: '家務', activity: '🧹 家務', mode: 'non-work', color: '#8D6E63', valType: 'maintenance' },
+            { id: 'btn-qs-wash', name: '🚰 盥洗', defaultName: '盥洗', activity: '🚰 盥洗', mode: 'non-work', color: '#00BCD4', valType: 'maintenance' },
+            { id: 'btn-qs-sleep', name: '💤 睡眠', defaultName: '睡眠', activity: '🛏️ 睡眠', mode: 'non-work', color: '#3F51B5', valType: 'maintenance' }
         ];
         saveData(); renderQuickButtonsManager(); renderQuickStartBar(); showToast('✔️ 已恢復預設');
     }
@@ -3286,11 +3384,12 @@ if (viewName === 'matrix') renderMatrixBoard();
     function renderTagGroupManager() {
         const container = document.getElementById('custom-taggroups-pool'); if(!container) return;
         
-
-        
         let periodTagsCounts = {};
-        const datasetForTags = getProcessedTasksList(); // Just use all non-completed tasks for pool
+        const datasetForTags = getProcessedTasksList();
+        let allowedCats = state.workMode === 'non-work' ? (state.categoryGroups.nonWork || []) : (state.categoryGroups.work || []);
+        
         datasetForTags.forEach(t => {
+            if (!allowedCats.includes(t.category)) return;
             let match; let localTags = [];
             const tr = /(?:#|🏷️)([^\s#🏷️]+)/g;
             while((match=tr.exec(t.name||''))!==null) {
@@ -3302,8 +3401,12 @@ if (viewName === 'matrix') renderMatrixBoard();
 
         let html = `<div style="font-size:12px; color:var(--muted-text); margin-bottom:5px;">📥 當期未分群標籤 (拖曳至下方群組)</div><div id="dnd-unassigned" class="dnd-zone" ondrop="dropTag(event, 'unassigned')" ondragover="allowDrop(event)">`;
         let assignedTags = new Set(); state.tagGroups.forEach(tg => tg.tags.forEach(t => assignedTags.add(t)));
-        let allowedTags = new Set(); state.tasks.forEach(t => { if ((t.workMode || 'work') === state.workMode) { let m; const tr = /(?:#|🏷️)([^\s#🏷️]+)/g; while((m=tr.exec(t.name||''))!==null) allowedTags.add(m[1]); } });
-        currentPeriodTags.forEach(tag => { if (!assignedTags.has(tag) && allowedTags.has(tag)) { html += `<div class="dnd-tag" draggable="true" ondragstart="dragTag(event, '${tag}')">#${tag}</div>`; } });
+        
+        currentPeriodTags.forEach(tag => { 
+            if (!assignedTags.has(tag)) { 
+                html += `<div class="dnd-tag" draggable="true" ondragstart="dragTag(event, '${tag}')">#${tag}</div>`; 
+            } 
+        });
         html += `</div><div style="margin-top:15px; display:flex; flex-direction:column; gap:10px;">`;
         const modeTag = state.workMode === 'work' ? '工作' : '非工作'; state.tagGroups.forEach((tg, idx) => { if (!tg.tags.includes(modeTag)) return; html += `<div class="group-zone" ondrop="dropTag(event, '${tg.name}')" ondragover="allowDrop(event)"><div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;"><div><strong style="color:#2E7D32; font-size:13px;">📁 ${tg.name}</strong><span style="font-size:10px; margin-left:6px; color:var(--muted-text); border: 1px solid var(--border-color); padding:2px 6px; border-radius:10px; background: var(--bg-color);">#${modeTag}</span></div><button class="btn btn-danger" style="padding:2px 6px; font-size:10px;" onclick="removeTagGroup(${idx})">刪除群組</button></div><div class="dnd-zone inner-zone">`; tg.tags.forEach(tag => { if(tag === modeTag) return; html += `<div class="dnd-tag" draggable="true" ondragstart="dragTag(event, '${tag}')">#${tag}</div>`; }); html += `</div></div>`; });
         html += `</div>`; container.innerHTML = html;
@@ -3422,7 +3525,7 @@ if (viewName === 'matrix') renderMatrixBoard();
 
         // --- Setup Filter Options ---
         const catOptions = state.categories.map(c => `<option value="${c}">${c}</option>`).join('');
-        const filterHTML = `<option value="all">全部類別</option><option value="work">💼 工作模式</option><option value="nonwork">🏖️ 非工作模式</option><optgroup label="各面向">${catOptions}</optgroup>`;
+        const filterHTML = `<option value="all">全部類別</option>${catOptions}`;
         ['activity-filter', 'taggroup-filter', 'trend-tags-filter'].forEach(id => {
             const el = document.getElementById(id);
             if (el && el.getAttribute('data-cats') !== state.categories.join(',')) {
@@ -4001,28 +4104,8 @@ if (viewName === 'matrix') renderMatrixBoard();
     function isTaskWeekday(task) { if ((task.dayType || 'auto') === 'auto') { const day = new Date(task.completedAt || task.createdAt || Date.now()).getDay(); return !(day === 0 || day === 6); } return task.dayType !== 'weekend'; }
     function isDateInRange(dateValue, period, customStart, customEnd) { if (!dateValue) return true; const d = new Date(dateValue); const dTime = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(); const now = new Date(); const tTime = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(); if (period === 'all') return true; if (period === 'today') return dTime === tTime; if (period === 'yesterday') return dTime === (tTime - 86400000); if (period === 'week') return getWeekNumber(d) === getWeekNumber(now) && d.getFullYear() === now.getFullYear(); if (period === 'lastWeek') { let lw = new Date(now.getTime() - 7 * 86400000); return getWeekNumber(d) === getWeekNumber(lw) && d.getFullYear() === lw.getFullYear(); } if (period === 'month') return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear(); if (period === 'lastMonth') { let lm = now.getMonth() - 1; let lmy = now.getFullYear(); if (lm < 0) { lm = 11; lmy--; } return d.getMonth() === lm && d.getFullYear() === lmy; } if (period === 'year') return d.getFullYear() === now.getFullYear(); if (period === 'custom') { let s = customStart ? new Date(customStart).getTime() : 0; let e = customEnd ? new Date(customEnd).getTime() : Infinity; return dTime >= s && dTime <= e; } return true; }
 
-    function restoreDefaultQuickStarts() {
-        state.quickStarts = ['📧 郵件', '💬 溝通', '🚨 插單', '🚶 移動', '🧹 家務', '💤 睡眠'];
-        saveData(); renderQuickStartsManager(); renderQuickStarts();
-    }
-    function restoreDefaultMarkers() {
-        state.markerTypes = ['⭐ 重要事項', '🔥 緊急事項', '🔄 重複型', '📖 學習型'];
-        saveData(); renderMarkerManager(); renderMarkers();
-    }
-    function restoreDefaultCategories() {
-        state.categories = ['💼 工作', '📖 學習', '🏠 家庭', '💪 健康', '🏖️ 非工作'];
-        state.categoryGroups = {
-            work: ['💼 工作'],
-            learning: ['📖 學習'],
-            family: ['🏠 家庭'],
-            health: ['💪 健康']
-        };
-        saveData(); renderCatManager(); renderCategoryFilter();
-    }
-    function restoreDefaultActivities() {
-        state.activityTypes = ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核'];
-        saveData(); renderActManager();
-    }
+
+
     // === Google 登入與登出邏輯 ===
     document.getElementById('main-login-btn').addEventListener('click', async () => {
         const { error } = await supabaseClient.auth.signInWithOAuth({ 
@@ -4052,7 +4135,25 @@ if (viewName === 'matrix') renderMatrixBoard();
             console.log("歡迎回來:", session.user.email);
             
             await loadData(); 
-            switchView('today');
+            
+            // 防呆：如果畫面上已經有處於 .active 狀態的面板，代表這只是 Alt+Tab 造成的 Session Refresh，不應強制蓋掉使用者的當前視圖
+            const hasActiveView = document.querySelector('.view-panel.active');
+            if (!hasActiveView) {
+                // 初次載入邏輯：以四象限為主板，若被隱藏則依序遞補尋找第一個顯示的面板
+                let defaultV = 'matrix';
+                const views = ['matrix', 'today', 'inbox', 'subtasks', 'lifecal', 'calendar', 'analytics', 'data', 'contacts', 'settings', 'suggestions'];
+                for (let v of views) { 
+                    let isVisible = false;
+                    if (v === 'today') {
+                        isVisible = (state && state.settings && state.settings.showToday === true);
+                    } else {
+                        let capV = v.charAt(0).toUpperCase() + v.slice(1);
+                        isVisible = !(state && state.settings && state.settings['show' + capV] === false);
+                    }
+                    if (isVisible) { defaultV = v; break; } 
+                }
+                switchView(defaultV);
+            }
         } else {
             // 未登入：顯示登入牆，隱藏應用程式
             loginWall.style.display = 'flex';
