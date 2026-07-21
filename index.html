@@ -431,10 +431,10 @@
 
     <div id="view-matrix" class="view-panel">
         <div class="matrix-grid-container">
-            <div class="matrix-quadrant matrix-tl"><div class="matrix-quad-title" style="color: #2E7D32;"><span>🍃 緊急事項</span></div><div id="matrix-tl-tasks" class="task-list"></div></div>
+            <div class="matrix-quadrant matrix-tl"><div class="matrix-quad-title" style="color: #2E7D32;"><span>⭐ 重要事項</span></div><div id="matrix-tl-tasks" class="task-list"></div></div>
             <div class="matrix-quadrant matrix-tr"><div class="matrix-quad-title" style="color: #E65100;"><span>🔥 重要且緊急</span></div><div id="matrix-tr-tasks" class="task-list"></div></div>
             <div class="matrix-quadrant matrix-bl"><div class="matrix-quad-title" style="color: #616161;"><span>☕ 常規事項</span></div><div id="matrix-bl-tasks" class="task-list"></div></div>
-            <div class="matrix-quadrant matrix-br"><div class="matrix-quad-title" style="color: #7B1FA2;"><span>⭐ 重要事項</span></div><div id="matrix-br-tasks" class="task-list"></div></div>
+            <div class="matrix-quadrant matrix-br"><div class="matrix-quad-title" style="color: #7B1FA2;"><span>🍃 緊急事項</span></div><div id="matrix-br-tasks" class="task-list"></div></div>
         </div>
     </div>
 
@@ -661,7 +661,7 @@
                         <div id="chart-taggroup-pie" class="pie-chart-container"></div>
                         <div id="chart-taggroup-type" class="pie-bars-wrapper"></div>
                     </div>
-                    <p style="font-size:11px; color:var(--muted-text); margin-top:5px; line-height:1.4;">邏輯說明：統計當期帶有標籤的任務，依照所屬標籤群組的時數佔比。</p>
+                    <p style="font-size:11px; color:var(--muted-text); margin-top:5px; line-height:1.4;">邏輯說明：統計當期帶有標籤的任務，依照所屬標籤群組的時數佔比。(註：睡眠時數不在標籤群組分析範圍內)</p>
                 </div>
         </div>
     </div>
@@ -695,7 +695,7 @@
                 <select id="trend-tags-filter" class="filter-select" style="padding:4px 8px; font-size:12px; width:120px;" onchange="renderTrendCharts()"></select>
             </div>
             <div id="trend-tags-chart" style="padding:10px 0; overflow-x:auto;"></div>
-            <p style="font-size:11px; color:var(--muted-text); margin-top:5px; margin-bottom:15px; line-height:1.4;">邏輯說明：將所有包含標籤的已完成任務，依其對應的「標籤群組」進行時數統計，以折線圖比較各群組的投入趨勢。</p>
+            <p style="font-size:11px; color:var(--muted-text); margin-top:5px; margin-bottom:15px; line-height:1.4;">邏輯說明：將所有包含標籤的已完成任務，依其對應的「標籤群組」進行時數統計，以折線圖比較各群組的投入趨勢。(註：睡眠時數不在標籤群組分析範圍內)</p>
         </div>
     </div>
 
@@ -723,14 +723,7 @@
                     <div class="flow-title">⚡ 快速按鈕管理 (Quick Start Bar) <span style="font-size:12px; color:var(--muted-text); font-weight:normal;">#不區分深淺</span></div>
                     <div id="qs-buttons-manager" style="margin-top:15px; display:flex; flex-direction:column; gap:8px;"></div>
                     <div style="margin-top: 15px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-                        <input type="text" id="new-qs-name" class="inline-input" placeholder="顯示文字 (例: 📧 郵件)" style="width:130px;">
-                        <input type="text" id="new-qs-desc" class="inline-input" placeholder="預設任務名稱" style="width:130px;">
-                        <select id="new-qs-act" class="filter-select" style="width:110px;"><option value="">無型態</option></select>
-                        <select id="new-qs-mode" class="filter-select" style="width:100px;">
-                            <option value="both">全模式</option><option value="work">工作模式</option><option value="non-work">非工作</option>
-                        </select>
-                        <input type="color" id="new-qs-color" class="qs-color-picker" value="#1A73E8" style="background:var(--input-bg); border: 2px solid var(--border-color); padding: 0; outline: none;">
-                        <button class="btn btn-complete" onclick="addQuickButton()">➕ 新增</button>
+                        <button class="btn btn-complete" onclick="openQsEditModal()">➕ 新增快捷按鈕</button>
                         <button class="btn" style="background:var(--secondary-color); color:white;" onclick="restoreDefaultQuickButtons()">↺ 恢復預設</button>
                     </div>
                 </div>
@@ -889,7 +882,8 @@
             <div id="sugg-log-area" style="display:none; padding: 20px; background: var(--input-bg); border-radius: 12px; border: 1px solid var(--border-color);">
                 <h3 style="color:var(--primary-color); margin-bottom:15px;">歷次版本與修改說明</h3>
                 <div style="display:flex; flex-direction:column; gap:15px; font-size:14px; color:var(--text-color); line-height:1.6;">
-                    <div><strong style="color:var(--secondary-color);">V4.6 (Current):</strong> 非工作深色主題切換、網格月曆三時數占比、快捷計時與休息防沉睡背景化統一、通訊錄中英與部門分離、子任務編輯排序與解析快捷鍵、獨立出 Life Calendar 模組並可計算摩擦與三維時間消耗占比倒數。</div>
+                    <div><strong style="color:var(--secondary-color);">V4.7 (Current):</strong> 修正快捷啟動任務暫停恢復機制、優化分析中心下拉選單為單純的工作/非工作切換、修復未結算任務於日期區間過濾失效之問題、修復分析圖表誤納入未結算任務之問題。</div>
+                    <div><strong style="color:var(--secondary-color);">V4.6:</strong> 非工作深色主題切換、網格月曆三時數占比、快捷計時與休息防沉睡背景化統一、通訊錄中英與部門分離、子任務編輯排序與解析快捷鍵、獨立出 Life Calendar 模組並可計算摩擦與三維時間消耗占比倒數。</div>
                     <div><strong style="color:var(--secondary-color);">V3.7.1:</strong> 修復任務編輯模式下勾選標籤時的顯示異常與互斥衝突。</div>
                     <div><strong style="color:var(--secondary-color);">V3.7:</strong> 模組全面開關支援、工作/非工作模式全域切換開關、月曆網格化視圖與月份篩選、子任務實際耗時分配與差異顯示、圖表顏色與Emoji優化。</div>
                     <div><strong style="color:var(--secondary-color);">V3.6:</strong> 智慧 `@` 人名下拉選單自動完成、`/YYYYMMDD` 快捷日期解析、系統設定面板單獨抽離為新模組、任務拆解面板支援全域過濾器連動、重構防沉睡背景計時器核心。</div>
@@ -919,13 +913,80 @@
     </div>
 </div>
 
+    <!-- 快速按鈕編輯彈窗 -->
+    <div class="modal-overlay" id="qs-edit-modal">
+        <div class="modal-card">
+            <h2 style="margin-top:0; font-size:18px; color:var(--text-color);" id="qs-edit-title">新增快捷按鈕</h2>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-top:20px;">
+                <input type="hidden" id="qs-edit-id">
+                
+                <div style="display:flex; gap:10px;">
+                    <div style="flex:1;">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">顯示文字</label>
+                        <input type="text" id="qs-edit-name" class="inline-input" placeholder="例: 📧 郵件" style="width:100%;">
+                    </div>
+                    <div style="flex:1;">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">預設任務名稱</label>
+                        <input type="text" id="qs-edit-desc" class="inline-input" placeholder="預設任務名稱" style="width:100%;">
+                    </div>
+                </div>
+
+                <div>
+                    <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">按鈕定義 (選填)</label>
+                    <input type="text" id="qs-edit-def" class="inline-input" placeholder="請輸入按鈕定義..." style="width:100%;">
+                </div>
+
+                <div style="display:flex; gap:10px; align-items: flex-end;">
+                    <div style="flex:1;">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">模式歸屬</label>
+                        <select id="qs-edit-mode" class="filter-select" style="width:100%;" onchange="updateQsEditActOptions()">
+                            <option value="both">工作/非工作</option>
+                            <option value="work">工作模式</option>
+                            <option value="non-work">非工作</option>
+                        </select>
+                    </div>
+                    <div style="flex:1;" id="qs-edit-act-work-container">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;" id="qs-edit-act-work-label">型態 (工作)</label>
+                        <select id="qs-edit-act" class="filter-select" style="width:100%;">
+                            <option value="">無型態</option>
+                        </select>
+                    </div>
+                    <div style="flex:1;" id="qs-edit-act-nw-container">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">型態 (非工作)</label>
+                        <select id="qs-edit-act-nw" class="filter-select" style="width:100%;">
+                            <option value="">無型態</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">按鈕顏色</label>
+                    <input type="color" id="qs-edit-color" class="qs-color-picker" value="#1A73E8" style="background:var(--input-bg); border: 2px solid var(--border-color); padding: 0; outline: none; width:60px; height:32px;">
+                </div>
+            </div>
+            
+            <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
+                <button class="btn" onclick="closeQsEditModal()">取消</button>
+                <button class="btn btn-complete" onclick="saveQuickButton()">儲存</button>
+            </div>
+        </div>
+    </div>
+
 <div class="modal-overlay" id="quick-finish-modal">
     <div class="modal-card" style="max-width: 450px;">
         <div class="modal-header"><h3>⚡ 結束快捷任務</h3><p>請確認或修改任務名稱後歸檔</p></div>
         <input type="hidden" id="qf-task-id">
         <div style="display:flex; flex-direction:column; gap: 12px; margin-bottom: 20px;">
             <input type="text" id="qf-name" class="inline-input" style="font-size: 16px; font-weight:bold;">
+            <div id="qf-def-container" style="display:none; font-size:12px; color:var(--muted-text); background:var(--input-bg); padding:6px 10px; border-radius:4px;"></div>
             <input type="text" id="qf-notes" class="inline-input" placeholder="備註/心得...">
+            <div id="qf-mode-container" style="display:none; gap:10px; align-items:center;">
+                <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">模式歸屬:</span>
+                <select id="qf-mode" class="inline-input" style="flex:1;" onchange="updateQfActivityOptions()">
+                    <option value="work">💼 工作模式</option>
+                    <option value="non-work">🏖️ 非工作模式</option>
+                </select>
+            </div>
             <div style="display:flex; gap:10px; align-items:center;">
                 <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">🎭 型態 (Activity):</span>
                 <select id="qf-activity" class="inline-input" style="flex:1;"></select>
@@ -1056,7 +1117,7 @@
             <div style="display:flex; gap:15px; flex-wrap:wrap;">
                 <div style="flex:1;">
                     <label style="font-size: 13px; font-weight: bold; color: var(--secondary-color);">歸屬類別:</label>
-                    <select id="edit-hist-cat" class="filter-select" style="width:100%; margin-top: 5px;"></select>
+                    <select id="edit-hist-cat" class="filter-select" style="width:100%; margin-top: 5px;" onchange="updateEditHistActivityDropdown()"></select>
                 </div>
                 <div style="flex:1;">
                     <label style="font-size: 13px; font-weight: bold; color: var(--secondary-color);">作戰日:</label>
@@ -1237,8 +1298,9 @@
             state.quickButtons = [
                 { id: 'btn-qs-email', name: '📧 郵件', defaultName: '收發信件', activity: '📧 行政', mode: 'work', color: '#7E22CE', valType: 'maintenance' },
                 { id: 'btn-qs-comm', name: '💬 溝通', defaultName: '溝通與討論', activity: '👥 會議/討論', mode: 'work', color: '#1A73E8', valType: 'maintenance' },
+                { id: 'btn-qs-meeting', name: '👨‍💻 例會', defaultName: '參與會議', activity: '👥 會議/討論', mode: 'work', color: '#00796B', valType: 'consumption' },
                 { id: 'btn-qs-interrupt', name: '🚨 插單', defaultName: '處理突發狀況', activity: '🗣️ 諮詢', mode: 'work', color: '#D32F2F', valType: 'consumption' },
-                { id: 'btn-qs-move', name: '🚶 移動', defaultName: '通勤', activity: '🚌 通勤', mode: 'work', color: '#757575', valType: 'maintenance' },
+                { id: 'btn-qs-move', name: '🚶 移動', defaultName: '往返', activity: '🦥 往返', mode: 'both', color: '#757575', valType: 'maintenance' },
                 { id: 'btn-qs-chore', name: '🧹 家務', defaultName: '家務', activity: '🧹 家務', mode: 'non-work', color: '#8D6E63', valType: 'maintenance' },
                 { id: 'btn-qs-wash', name: '🚰 盥洗', defaultName: '盥洗', activity: '🚰 盥洗', mode: 'non-work', color: '#00BCD4', valType: 'maintenance' },
                 { id: 'btn-qs-sleep', name: '💤 睡眠', defaultName: '睡眠', activity: '🛏️ 睡眠', mode: 'non-work', color: '#3F51B5', valType: 'maintenance' }
@@ -1258,6 +1320,39 @@
             state.categoryGroups = { work: ['💼 工作'], nonWork: ['🏖️ 非工作'] };
             migrated = true;
         }
+        
+        if (Array.isArray(state.activityTypes)) {
+            state.activityTypes = {
+                work: state.activityTypes,
+                'non-work': ['🧹 家務', '🚰 盥洗', '🛏️ 睡眠', '🎮 休閒', '📖 閱讀']
+            };
+            migrated = true;
+        }
+
+        if (!localStorage.getItem('tp_t_shape_applied_v9')) {
+            let moveBtn = state.quickButtons && state.quickButtons.find(b => b.id === 'btn-qs-move');
+            if (moveBtn) { moveBtn.mode = 'work'; moveBtn.activity = '🚌 通勤'; moveBtn.defaultName = '通勤'; }
+            if (state.quickButtons) {
+                state.quickButtons = state.quickButtons.filter(b => b.id !== 'btn-qs-meeting');
+            }
+            localStorage.setItem('tp_t_shape_applied_v9', 'true');
+            migrated = true;
+        }
+
+        if (!localStorage.getItem('tp_move_both_v10')) {
+            let moveBtn = state.quickButtons && state.quickButtons.find(b => b.id === 'btn-qs-move');
+            if (moveBtn) { 
+                moveBtn.mode = 'both'; 
+                moveBtn.activityWork = '🚌 通勤';
+                moveBtn.activityNw = '🦥 往返';
+                moveBtn.activity = '🚌 通勤 / 🦥 往返'; 
+                moveBtn.defaultName = '通勤/往返';
+            }
+            localStorage.setItem('tp_move_both_v10', 'true');
+            migrated = true;
+        }
+
+
         if (migrated) {
             console.log("✅ Categories migrated to Work/Non-Work.");
             saveData();
@@ -1416,10 +1511,11 @@
 
         if (!localStorage.getItem('tp_t_shape_applied_v4')) {
             if(!state.lifeWeeks) state.lifeWeeks = {};
-
             localStorage.setItem('tp_t_shape_applied_v4', 'true');
             needSave = true;
         }
+
+        
 
         if(needSave) saveData();
     }
@@ -1543,6 +1639,14 @@
             } 
         });
         
+        let existingPausedQT = state.tasks.find(t => t.status === 'paused' && t.isQuickTask && t.quickType === id);
+        if (existingPausedQT) {
+            existingPausedQT.status = 'active';
+            existingPausedQT.lastTick = Date.now();
+            saveData(); renderAll(); updateQuickButtonsUI(); showToast(`▶️ 恢復快捷計時: ${qb.defaultName}`);
+            return;
+        }
+
         let defCat = qb.mode === 'work' ? (state.categories[0] || '💼 工作') : (state.categories.includes('🏖️ 非工作') ? '🏖️ 非工作' : state.categories[0] || '💼 工作');
 
         const newTask = {
@@ -1577,6 +1681,27 @@
         updateQuickButtonsUI();
     }
 
+    function updateQfActivityOptions() {
+        const mode = document.getElementById('qf-mode').value;
+        const actSelect = document.getElementById('qf-activity');
+        actSelect.innerHTML = '<option value="">無</option>';
+        (state.activityTypes[mode] || []).forEach(a => actSelect.innerHTML += `<option value="${a}">${a}</option>`);
+        
+        const qfTaskId = parseInt(document.getElementById('qf-task-id').value);
+        const task = state.tasks.find(t => t.id === qfTaskId);
+        if (task) {
+            const qb = state.quickButtons.find(b => b.id === task.quickType);
+            if (qb && qb.mode === 'both') {
+                if (mode === 'work') {
+                    actSelect.value = qb.activityWork || '';
+                } else {
+                    actSelect.value = qb.activityNw || '';
+                }
+                document.getElementById('qf-val').value = qb.valType || 'unclassified';
+            }
+        }
+    }
+
     function openQuickFinishModal(id) {
         const task = state.tasks.find(t => t.id === id); if(!task) return;
         document.getElementById('qf-task-id').value = id;
@@ -1584,9 +1709,42 @@
         document.getElementById('qf-notes').value = task.notes || '';
         document.getElementById('qf-val').value = task.valueType || 'unclassified';
         
+        const qb = state.quickButtons.find(b => b.id === task.quickType);
+        
+        const defContainer = document.getElementById('qf-def-container');
+        if (qb && qb.definition) {
+            defContainer.style.display = 'block';
+            defContainer.textContent = `📝 定義：${qb.definition}`;
+        } else {
+            defContainer.style.display = 'none';
+            defContainer.textContent = '';
+        }
+
+        const modeContainer = document.getElementById('qf-mode-container');
+        const modeSelect = document.getElementById('qf-mode');
+        
+        let targetMode = state.workMode;
+        if (qb) {
+            if (qb.mode === 'both') {
+                modeContainer.style.display = 'flex';
+                targetMode = 'non-work'; 
+                modeSelect.value = targetMode;
+            } else {
+                modeContainer.style.display = 'none';
+                targetMode = qb.mode;
+            }
+        } else {
+            modeContainer.style.display = 'none';
+        }
+
         const actSelect = document.getElementById('qf-activity'); actSelect.innerHTML = '<option value="">無</option>';
-        getCurrentActivityTypes().forEach(a => actSelect.innerHTML += `<option value="${a}">${a}</option>`);
+        (state.activityTypes[targetMode] || []).forEach(a => actSelect.innerHTML += `<option value="${a}">${a}</option>`);
         actSelect.value = task.activity || '';
+        
+        if (qb && qb.mode === 'both') {
+             actSelect.value = qb.activityNw || '';
+             document.getElementById('qf-val').value = qb.valType || 'unclassified';
+        }
 
         document.getElementById('quick-finish-modal').classList.add('active');
     }
@@ -1605,6 +1763,18 @@
         if(task) {
             task.name = document.getElementById('qf-name').value || '快速任務'; task.notes = document.getElementById('qf-notes').value;
             task.activity = document.getElementById('qf-activity').value; task.valueType = document.getElementById('qf-val').value;
+            
+            const modeContainer = document.getElementById('qf-mode-container');
+            if (modeContainer.style.display !== 'none') {
+                const mode = document.getElementById('qf-mode').value;
+                if (mode === 'work') {
+                    task.category = state.categories.find(c => !state.categoryGroups || (state.categoryGroups.work && state.categoryGroups.work.includes(c))) || state.categories[0] || '💼 工作';
+                } else {
+                    task.category = state.categories.find(c => state.categoryGroups && state.categoryGroups.nonWork && state.categoryGroups.nonWork.includes(c)) || (state.categories.includes('🏡 非工作') ? '🏡 非工作' : state.categories[0] || '🏡 非工作');
+                }
+                task.workMode = mode;
+            }
+
             task.isQuickTask = false; 
             task.status = 'completed'; task.completedAt = Date.now();
             saveData(); renderAll(); updateQuickButtonsUI(); showToast('✅ 快捷任務已結算歸檔');
@@ -1946,13 +2116,13 @@
         document.getElementById('edit-hist-time').value = Math.round((task.timeSpent || 0) / 60);
         document.getElementById('edit-hist-val').value = task.valueType || 'unclassified';
         
-        const actSelect = document.getElementById('edit-hist-act');
-        actSelect.innerHTML = '<option value="">無</option>' + getAllActivityTypes().map(a => `<option value="${a}">${a}</option>`).join('');
-        actSelect.value = task.activity || '';
-        
         const catSelect = document.getElementById('edit-hist-cat');
         catSelect.innerHTML = '<option value="">無</option>' + state.categories.map(c => `<option value="${c}">${c}</option>`).join('');
         catSelect.value = task.category || '';
+        
+        updateEditHistActivityDropdown();
+        document.getElementById('edit-hist-act').value = task.activity || '';
+
         
         document.getElementById('edit-hist-day').value = task.dayType || 'auto';
         document.getElementById('edit-hist-notes').value = task.notes || '';
@@ -1977,6 +2147,23 @@
         </div>`;
         
         document.getElementById('edit-history-modal').classList.add('active');
+    }
+
+    function updateEditHistActivityDropdown() {
+        const catSelect = document.getElementById('edit-hist-cat');
+        const actSelect = document.getElementById('edit-hist-act');
+        if (!catSelect || !actSelect) return;
+        const cat = catSelect.value;
+        const currentAct = actSelect.value;
+        let allowedActs = getAllActivityTypes();
+        if (state.categoryGroups && state.categoryGroups.work && state.categoryGroups.work.includes(cat)) {
+            allowedActs = state.activityTypes.work || [];
+        } else if (state.categoryGroups && state.categoryGroups.nonWork && state.categoryGroups.nonWork.includes(cat)) {
+            allowedActs = state.activityTypes['non-work'] || [];
+        }
+        actSelect.innerHTML = '<option value="">無</option>' + allowedActs.map(a => `<option value="${a}">${a}</option>`).join('');
+        if (allowedActs.includes(currentAct)) actSelect.value = currentAct;
+        else actSelect.value = '';
     }
 
     function handleEditHistMarkerChange(el) {
@@ -3313,29 +3500,121 @@ if (viewName === 'matrix') renderMatrixBoard();
             html += `
                 <div class="qs-btn-item">
                     <span style="font-weight:bold; width:80px; color:${qb.color}">${qb.name}</span>
-                    <span style="font-size:12px; color:var(--secondary-color); width:120px;">[${qb.mode === 'both' ? '全' : (qb.mode === 'work' ? '工作' : '非工作')}]</span>
-                    <span style="font-size:12px; color:var(--text-color); flex:1;">預設: ${qb.defaultName} | 型態: ${qb.activity || '無'}</span>
+                    <span style="font-size:12px; color:var(--secondary-color); width:120px;">[${qb.mode === 'both' ? '工作/非工作' : (qb.mode === 'work' ? '工作' : '非工作')}]</span>
+                    <span style="font-size:12px; color:var(--text-color); flex:1;">預設: ${qb.defaultName} | 型態: ${qb.activity || '無'}${qb.definition ? `<br><span style="color:var(--muted-text)">📝 定義：${qb.definition}</span>` : ''}</span>
+                    <button class="btn" style="padding:4px 8px; font-size:12px; background:var(--bg-color); border:1px solid var(--border-color); color:var(--text-color); margin-right:5px;" onclick="openQsEditModal('${qb.id}')">✏️ 編輯</button>
                     <button class="btn btn-danger" style="padding:4px 8px; font-size:12px;" onclick="removeQuickButton('${qb.id}')">🗑 刪除</button>
                 </div>
             `;
         });
         container.innerHTML = html;
-        const actSelect = document.getElementById('new-qs-act');
-        if(actSelect) actSelect.innerHTML = '<option value="">無型態</option>' + getCurrentActivityTypes().map(a => `<option value="${a}">${a}</option>`).join('');
     }
 
-    function addQuickButton() {
-        const name = document.getElementById('new-qs-name').value.trim();
-        const desc = document.getElementById('new-qs-desc').value.trim();
-        const act = document.getElementById('new-qs-act').value;
-        const mode = document.getElementById('new-qs-mode').value;
-        const color = document.getElementById('new-qs-color').value;
+    function openQsEditModal(id = null) {
+        let qbId = (typeof id === 'string') ? id : null;
+        document.getElementById('qs-edit-id').value = qbId || '';
+        document.getElementById('qs-edit-title').innerText = qbId ? '編輯快捷按鈕' : '新增快捷按鈕';
+        
+        let qb = qbId ? state.quickButtons.find(b => b.id === qbId) : null;
+        
+        document.getElementById('qs-edit-name').value = qb ? qb.name : '';
+        document.getElementById('qs-edit-desc').value = qb ? qb.defaultName : '';
+        document.getElementById('qs-edit-def').value = qb ? (qb.definition || '') : '';
+        document.getElementById('qs-edit-mode').value = qb ? qb.mode : 'both';
+        document.getElementById('qs-edit-color').value = qb ? qb.color : '#1A73E8';
+        
+        updateQsEditActOptions(qb);
+        document.getElementById('qs-edit-modal').style.display = '';
+        document.getElementById('qs-edit-modal').classList.add('active');
+    }
+
+    function closeQsEditModal() {
+        document.getElementById('qs-edit-modal').classList.remove('active');
+    }
+
+    function updateQsEditActOptions(qbContext = null) {
+        const mode = document.getElementById('qs-edit-mode').value;
+        const workActSelect = document.getElementById('qs-edit-act');
+        const nwActSelect = document.getElementById('qs-edit-act-nw');
+        const workContainer = document.getElementById('qs-edit-act-work-container');
+        const nwContainer = document.getElementById('qs-edit-act-nw-container');
+        const workLabel = document.getElementById('qs-edit-act-work-label');
+
+        workActSelect.innerHTML = '<option value="">無型態</option>';
+        nwActSelect.innerHTML = '<option value="">無型態</option>';
+
+        let workActs = Array.isArray(state.activityTypes) ? state.activityTypes : (state.activityTypes.work || []);
+        let nwActs = Array.isArray(state.activityTypes) ? state.activityTypes : (state.activityTypes['non-work'] || []);
+
+        if (mode === 'both') {
+            workLabel.innerText = '型態 (工作)';
+            nwContainer.style.display = 'block';
+            workActs.forEach(a => workActSelect.innerHTML += `<option value="${a}">${a}</option>`);
+            nwActs.forEach(a => nwActSelect.innerHTML += `<option value="${a}">${a}</option>`);
+            
+            if (qbContext && qbContext.mode === 'both') {
+                workActSelect.value = qbContext.activityWork || '';
+                nwActSelect.value = qbContext.activityNw || '';
+            } else if (qbContext) {
+                workActSelect.value = qbContext.activity || '';
+            }
+        } else {
+            workLabel.innerText = '型態';
+            nwContainer.style.display = 'none';
+            let targetActs = mode === 'work' ? workActs : nwActs;
+            targetActs.forEach(a => workActSelect.innerHTML += `<option value="${a}">${a}</option>`);
+            if (qbContext) {
+                workActSelect.value = qbContext.activity || '';
+            }
+        }
+    }
+
+    function saveQuickButton() {
+        const idInput = document.getElementById('qs-edit-id').value;
+        const name = document.getElementById('qs-edit-name').value.trim();
+        const desc = document.getElementById('qs-edit-desc').value.trim();
+        const def = document.getElementById('qs-edit-def').value.trim();
+        const mode = document.getElementById('qs-edit-mode').value;
+        const color = document.getElementById('qs-edit-color').value;
         
         if(!name || !desc) { showToast('請填寫顯示文字與預設任務名稱'); return; }
-        const id = 'qs-' + Date.now();
-        state.quickButtons.push({ id, name, defaultName: desc, activity: act, mode, color });
-        document.getElementById('new-qs-name').value = ''; document.getElementById('new-qs-desc').value = '';
-        saveData(); renderQuickButtonsManager(); renderQuickStartBar(); showToast('➕ 新增成功');
+        
+        let act = '';
+        let actWork = '';
+        let actNw = '';
+        
+        if (mode === 'both') {
+            actWork = document.getElementById('qs-edit-act').value;
+            actNw = document.getElementById('qs-edit-act-nw').value;
+            if (actWork && actNw) act = `${actWork} / ${actNw}`;
+            else if (actWork) act = actWork;
+            else if (actNw) act = actNw;
+        } else {
+            act = document.getElementById('qs-edit-act').value;
+        }
+
+        if (idInput) {
+            let qb = state.quickButtons.find(b => b.id === idInput);
+            if (qb) {
+                qb.name = name; qb.defaultName = desc; qb.definition = def;
+                qb.mode = mode; qb.color = color; qb.activity = act;
+                if (mode === 'both') {
+                    qb.activityWork = actWork; qb.activityNw = actNw;
+                } else {
+                    delete qb.activityWork; delete qb.activityNw;
+                }
+            }
+        } else {
+            const id = 'qs-' + Date.now();
+            let newQb = { id, name, defaultName: desc, definition: def, activity: act, mode, color, valType: 'maintenance' };
+            if (mode === 'both') {
+                newQb.activityWork = actWork; newQb.activityNw = actNw;
+            }
+            state.quickButtons.push(newQb);
+        }
+        
+        closeQsEditModal();
+        saveData(); renderQuickButtonsManager(); renderQuickStartBar(); showToast('✔️ 儲存成功');
     }
 
     function restoreDefaultQuickButtons() {
@@ -3343,7 +3622,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             { id: 'btn-qs-email', name: '📧 郵件', defaultName: '收發電子郵件', activity: '📧 行政', mode: 'work', color: '#7E22CE', valType: 'maintenance' },
             { id: 'btn-qs-comm', name: '💬 溝通', defaultName: '溝通與討論', activity: '👥 會議/討論', mode: 'work', color: '#1A73E8', valType: 'maintenance' },
             { id: 'btn-qs-interrupt', name: '🚨 插單', defaultName: '處理臨時插單', activity: '🗣️ 諮詢', mode: 'work', color: '#D32F2F', valType: 'consumption' },
-            { id: 'btn-qs-move', name: '🚶 移動', defaultName: '通勤', activity: '🚌 通勤', mode: 'work', color: '#757575', valType: 'maintenance' },
+            { id: 'btn-qs-move', name: '🚶 移動', defaultName: '通勤/往返', activityWork: '🚌 通勤', activityNw: '🦥 往返', activity: '🚌 通勤 / 🦥 往返', mode: 'both', color: '#757575', valType: 'maintenance' },
             { id: 'btn-qs-chore', name: '🧹 家務', defaultName: '家務', activity: '🧹 家務', mode: 'non-work', color: '#8D6E63', valType: 'maintenance' },
             { id: 'btn-qs-wash', name: '🚰 盥洗', defaultName: '盥洗', activity: '🚰 盥洗', mode: 'non-work', color: '#00BCD4', valType: 'maintenance' },
             { id: 'btn-qs-sleep', name: '💤 睡眠', defaultName: '睡眠', activity: '🛏️ 睡眠', mode: 'non-work', color: '#3F51B5', valType: 'maintenance' }
@@ -3364,7 +3643,7 @@ if (viewName === 'matrix') renderMatrixBoard();
     function restoreDefaultMarkers() { showConfirm('恢復預設', '確定要將勾選標示恢復為預設值嗎？這將覆蓋您目前所有的自訂標示。', () => { state.markerTypes = ['⭐ 重要事項', '🔥 緊急事項', '🔄 重複型', '📖 學習型']; saveData(); renderCustomCatManagerPool(); renderCreationMarkerCheckboxes(); renderAnalytics(); showToast('☑️ 勾選標示已恢復預設'); }); }
     function addUserActivity() { const input = document.getElementById('new-activity-input'); const v = input.value.trim(); if(v && !getCurrentActivityTypes().includes(v)) { if (Array.isArray(state.activityTypes)) { state.activityTypes.push(v); } else { if (!state.activityTypes[state.workMode]) state.activityTypes[state.workMode] = []; state.activityTypes[state.workMode].push(v); } input.value = ''; saveData(); renderCustomCatManagerPool(); renderAnalytics(); showToast('➕ 新增成功'); } }
     function removeUserActivity(v) { showConfirm('刪除', `確定移除「${v}」？`, () => { if (Array.isArray(state.activityTypes)) { state.activityTypes = state.activityTypes.filter(a => a !== v); } else { state.activityTypes[state.workMode] = state.activityTypes[state.workMode].filter(a => a !== v); } saveData(); renderCustomCatManagerPool(); renderAnalytics(); }); }
-    function restoreDefaultActivities() { showConfirm('恢復預設', '確定要將型態恢復為預設值嗎？這將覆蓋您目前所有的自訂型態。', () => { if(Array.isArray(state.activityTypes)) state.activityTypes = { work: state.activityTypes, 'non-work': [] }; if (state.workMode === 'work') { state.activityTypes.work = ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核']; } else { state.activityTypes['non-work'] = ['🎮 休閒', '📖 閱讀', '💪 運動', '🧹 家務', '🧑‍🤝‍🧑 社交']; } saveData(); renderCustomCatManagerPool(); renderAnalytics(); showToast('🎭 型態已恢復預設'); }); }
+    function restoreDefaultActivities() { showConfirm('恢復預設', '確定要將型態恢復為預設值嗎？這將覆蓋您目前所有的自訂型態。', () => { if(Array.isArray(state.activityTypes)) state.activityTypes = { work: state.activityTypes, 'non-work': [] }; if (state.workMode === 'work') { state.activityTypes.work = ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核', '🚌 通勤']; } else { state.activityTypes['non-work'] = ['🎮 休閒', '📖 閱讀', '💪 運動', '🧹 家務', '🧑‍🤝‍🧑 社交', '🦥 往返']; } saveData(); renderCustomCatManagerPool(); renderAnalytics(); showToast('🎭 型態已恢復預設'); }); }
     function addVendorEntity() { const input = document.getElementById('new-vendor-input'); const v = input.value.trim(); if(!state.vendorEntities) state.vendorEntities = []; if(v && !state.vendorEntities.includes(v)) { state.vendorEntities.push(v); input.value = ''; saveData(); renderCustomCatManagerPool(); showToast('➕ 新增廠商'); } }
     function removeVendorEntity(v) { showConfirm('刪除', `確定要刪除「${v}」嗎？`, () => { state.vendorEntities = state.vendorEntities.filter(c => c !== v); saveData(); renderCustomCatManagerPool(); }); }
     function addCorporateEntity() { const input = document.getElementById('new-corporate-input'); const v = input.value.trim(); const type = document.getElementById('new-corp-type') ? document.getElementById('new-corp-type').value : 'external'; if(v && !state.corporateEntities.includes(v)) { state.corporateEntities.push(v); state.targetGroups[type].push(v); input.value = ''; saveData(); renderCustomCatManagerPool(); showToast('➕ 新增對象成功'); } }
@@ -3452,7 +3731,10 @@ if (viewName === 'matrix') renderMatrixBoard();
         if (dataset.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color:var(--muted-text); padding:30px;">查無符合當前條件的紀錄</td></tr>`; return; }
         let valEmojiMap = { investment: '🚀', maintenance: '⚙️', consumption: '🛑', recovery: '☕', unclassified: '👤' }; let valEmojiTitleMap = { investment: '投資型', maintenance: '維持型', consumption: '消耗型', recovery: '恢復型', unclassified: '未分類' };
 
+        let totalMins = 0;
         dataset.forEach(t => {
+            let mins = Math.round((t.timeSpent || 0) / 60);
+            totalMins += mins;
             let actualDate = formatDateString(new Date(t.completedAt || t.createdAt || Date.now())); let vType = t.valueType || 'unclassified';
             let valEmoji = `<span style="font-size:16px; cursor:help;" title="${valEmojiTitleMap[vType] || '未分類'}">${valEmojiMap[vType] || '👤'}</span>`;
             let markerEmojis = (t.customMarkers || []).map(m => `<span style="font-size:14px; cursor:help;" title="${m}">${m ? m.split(' ')[0] : ''}</span>`).join(' ');
@@ -3485,6 +3767,14 @@ if (viewName === 'matrix') renderMatrixBoard();
                 </tr>
             `;
         });
+        
+        tbody.innerHTML += `
+            <tr style="background-color: var(--highlight-bg);">
+                <td colspan="2" style="text-align: right; font-weight: bold; padding-right: 15px; color: var(--secondary-color);">目前列表總計耗時：</td>
+                <td style="font-family: monospace; font-weight: 700; color: var(--primary-color); font-size: 14px;">${totalMins} 分</td>
+                <td colspan="4"></td>
+            </tr>
+        `;
     }
 
     function createSVGPieChart(dataArray, colorMap) {
@@ -3518,21 +3808,20 @@ if (viewName === 'matrix') renderMatrixBoard();
     }
 
     function changeAnalyticsPeriod() { state.analyticsPeriod = document.getElementById('analytics-period-select').value; document.getElementById('analytics-custom-date').style.display = state.analyticsPeriod === 'custom' ? 'flex' : 'none'; renderAnalytics(); }
-    function getFilteredTasksForAnalytics() { let start = document.getElementById('analytics-start-date').value; let end = document.getElementById('analytics-end-date').value; return state.tasks.filter(t => { if (t.status !== 'completed') return true; return isDateInRange(t.completedAt || t.createdAt, state.analyticsPeriod, start, end); }); }
+    function getFilteredTasksForAnalytics() { let start = document.getElementById('analytics-start-date').value; let end = document.getElementById('analytics-end-date').value; return state.tasks.filter(t => { return isDateInRange(t.completedAt || t.createdAt, state.analyticsPeriod, start, end); }); }
 
     function renderAnalytics() {
-        renderCustomCatManagerPool(); const dataset = getFilteredTasksForAnalytics();
+        renderCustomCatManagerPool(); let dataset = getFilteredTasksForAnalytics();
 
         // --- Setup Filter Options ---
-        const catOptions = state.categories.map(c => `<option value="${c}">${c}</option>`).join('');
-        const filterHTML = `<option value="all">全部類別</option>${catOptions}`;
+        const filterHTML = `<option value="all">全部類別</option><option value="work">工作</option><option value="nonwork">非工作</option>`;
         ['activity-filter', 'taggroup-filter', 'trend-tags-filter'].forEach(id => {
             const el = document.getElementById(id);
-            if (el && el.getAttribute('data-cats') !== state.categories.join(',')) {
+            if (el && el.getAttribute('data-cats') !== 'simplified') {
                 const currentVal = el.value || 'all';
                 el.innerHTML = filterHTML;
                 el.value = currentVal;
-                el.setAttribute('data-cats', state.categories.join(','));
+                el.setAttribute('data-cats', 'simplified');
             }
         });
         // V4.6: Also trigger trend charts
@@ -3548,7 +3837,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             
             const interruptCount = dataset.filter(t => t.customMarkers && t.customMarkers.includes('🚨 插單')).length;
             const restCount = dataset.filter(t => t.valueType === 'recovery' || t.activity === '💺 休息' || t.isRestLog).length;
-            const sleepTasks = dataset.filter(t => t.activity === '💤 睡眠' || (t.name && t.name.includes('睡眠')));
+            const sleepTasks = dataset.filter(t => (t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠')));
             const sleepCount = sleepTasks.length;
             const sleepHrs = (sleepTasks.reduce((acc, t) => acc + (t.timeSpent || 0), 0) / 3600).toFixed(1);
 
@@ -3569,21 +3858,27 @@ if (viewName === 'matrix') renderMatrixBoard();
         }
 
         
+        dataset = dataset.filter(t => t.status === 'completed');
         let workOnlyTasks = dataset.filter(t => (state.categoryGroups.work || []).includes(t.category));
-        let mappedDataset = workOnlyTasks.map(t => {
+        
+        let commuteTasks = workOnlyTasks.filter(t => t.activity === '🚌 通勤');
+        let mappedDataset = workOnlyTasks.filter(t => t.activity !== '🚌 通勤').map(t => {
             let isRest = t.isRestLog || t.activity === '💺 休息' || t.activity === '🐒 偷懶' || t.valueType === 'recovery';
             return { ...t, isHealthRest: isRest, effectiveValueType: t.valueType || 'unclassified' };
         });
-        let totalHealthSec = mappedDataset.reduce((acc, t) => acc + (t.timeSpent || 0), 0) || 1;
+        
+        let commuteSec = commuteTasks.reduce((acc, t) => acc + (t.timeSpent || 0), 0);
         let restSec = mappedDataset.filter(t => t.isHealthRest).reduce((acc, t) => acc + (t.timeSpent || 0), 0);
         let workSec = mappedDataset.filter(t => !t.isHealthRest).reduce((acc, t) => acc + (t.timeSpent || 0), 0);
+        let totalHealthSec = (restSec + workSec + commuteSec) || 1;
 
         const healthPieContainer = document.getElementById('chart-health-pie'); const healthBarsContainer = document.getElementById('chart-health-bars');
         if (healthPieContainer && healthBarsContainer) {
-            healthBarsContainer.innerHTML = ''; let pieHealthData = []; const healthColorsMap = { work: '#2D5B8A', rest: '#4CAF50' };
-            let wPct = ((workSec / totalHealthSec) * 100).toFixed(1); let rPct = ((restSec / totalHealthSec) * 100).toFixed(1);
-            if(workSec > 0) pieHealthData.push({label: 'work', value: workSec}); if(restSec > 0) pieHealthData.push({label: 'rest', value: restSec});
+            healthBarsContainer.innerHTML = ''; let pieHealthData = []; const healthColorsMap = { work: '#2D5B8A', rest: '#4CAF50', commute: '#757575' };
+            let wPct = ((workSec / totalHealthSec) * 100).toFixed(1); let rPct = ((restSec / totalHealthSec) * 100).toFixed(1); let cPct = ((commuteSec / totalHealthSec) * 100).toFixed(1);
+            if(workSec > 0) pieHealthData.push({label: 'work', value: workSec}); if(restSec > 0) pieHealthData.push({label: 'rest', value: restSec}); if(commuteSec > 0) pieHealthData.push({label: 'commute', value: commuteSec});
             healthBarsContainer.innerHTML += `<div class="chart-row"><div class="chart-label">💼 工作產出</div><div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${wPct}%; background:${healthColorsMap.work};"></div></div><div class="chart-value">${(workSec/3600).toFixed(1)}h</div></div>`;
+            healthBarsContainer.innerHTML += `<div class="chart-row"><div class="chart-label">🚌 通勤移動</div><div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${cPct}%; background:${healthColorsMap.commute};"></div></div><div class="chart-value">${(commuteSec/3600).toFixed(1)}h</div></div>`;
             healthBarsContainer.innerHTML += `<div class="chart-row"><div class="chart-label">🔋 偷懶休息</div><div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${rPct}%; background:${healthColorsMap.rest};"></div></div><div class="chart-value">${(restSec/3600).toFixed(1)}h</div></div>`;
             healthPieContainer.innerHTML = createSVGPieChart(pieHealthData, healthColorsMap);
         }
@@ -3604,7 +3899,10 @@ if (viewName === 'matrix') renderMatrixBoard();
         const actPieContainer = document.getElementById('chart-activity-pie'); const actBarContainer = document.getElementById('chart-activity-type'); 
         if (actBarContainer && actPieContainer) {
             actBarContainer.innerHTML = ''; let pieActData = []; const actColorsMap = {}; const palette = ['#FF9800', '#00BCD4', '#9C27B0', '#E91E63', '#3F51B5', '#009688', '#FFEB3B'];
-            getAllActivityTypes().forEach((a, i) => actColorsMap[a] = palette[i % palette.length]); actColorsMap['❓ 未設定'] = '#666666'; actColorsMap['👥 會議/討論'] = '#8E44AD';
+            getAllActivityTypes().forEach((a, i) => actColorsMap[a] = palette[i % palette.length]);
+            actColorsMap['❓ 未設定'] = '#666666'; actColorsMap['👥 會議/討論'] = '#8E44AD';
+            actColorsMap['🛏️ 睡眠'] = '#2D5B8A'; actColorsMap['💤 睡眠'] = '#2D5B8A';
+            actColorsMap['🚌 通勤/往返'] = '#757575';
             let actFilterVal = document.getElementById('activity-filter') ? document.getElementById('activity-filter').value : 'all';
             let actFilteredTasks = dataset.filter(t => {
                 if (actFilterVal === 'all') return true;
@@ -3612,7 +3910,12 @@ if (viewName === 'matrix') renderMatrixBoard();
                 if (actFilterVal === 'nonwork') return !(state.categoryGroups.work || []).includes(t.category);
                 return t.category === actFilterVal;
             });
-            let totalActSec = actFilteredTasks.reduce((a,b)=>a+(b.timeSpent||0), 0) || 1; let actMap = {}; actFilteredTasks.forEach(t => { let act = t.activity || '❓ 未設定'; actMap[act] = (actMap[act] || 0) + (t.timeSpent || 0); });
+            let totalActSec = actFilteredTasks.reduce((a,b)=>a+(b.timeSpent||0), 0) || 1; let actMap = {}; actFilteredTasks.forEach(t => { 
+                let act = t.activity || '❓ 未設定'; 
+                if (act !== '🛏️ 睡眠' && act !== '💤 睡眠' && (t.name && t.name.includes('睡眠'))) act = '🛏️ 睡眠';
+                if (actFilterVal === 'all' && (act === '🚌 通勤' || act === '🦥 往返')) act = '🚌 通勤/往返';
+                actMap[act] = (actMap[act] || 0) + (t.timeSpent || 0); 
+            });
             Object.keys(actMap).sort((a,b)=>actMap[b]-actMap[a]).forEach(act => {
                 const sec = actMap[act]; const pct = ((sec / totalActSec) * 100).toFixed(1); if(sec > 0) pieActData.push({label: act, value: sec});
                 actBarContainer.innerHTML += `<div class="chart-row"><div class="chart-label">${act}</div><div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${pct}%; background:${actColorsMap[act]};"></div></div><div class="chart-value">${(sec/3600).toFixed(1)}h</div></div>`;
@@ -3628,8 +3931,19 @@ if (viewName === 'matrix') renderMatrixBoard();
         if (catContainer) {
             catContainer.innerHTML = ''; let totalCatSec = dataset.reduce((a,b)=>a+(b.timeSpent||0), 0) || 1;
             state.categories.forEach(cat => {
-                const sec = dataset.filter(t => t.category === cat).reduce((acc, t) => acc + (t.timeSpent||0), 0); const pct = ((sec / totalCatSec) * 100).toFixed(1);
-                if (sec > 0) catContainer.innerHTML += `<div class="chart-row"><div class="chart-label">${cat}</div><div class="chart-bar-container"><div class="chart-bar-fill" style="width: ${pct}%; background: ${catColorMap[cat]};"></div></div><div class="chart-value">${(sec/3600).toFixed(1)}h (${pct}%)</div></div>`;
+                const tasks = dataset.filter(t => t.category === cat);
+                const sleepSec = tasks.filter(t => (t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠'))).reduce((a, t) => a + (t.timeSpent || 0), 0);
+                const otherSec = tasks.filter(t => !((t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠')))).reduce((a, t) => a + (t.timeSpent || 0), 0);
+                const sec = sleepSec + otherSec;
+                if (sec > 0) {
+                    const sleepPct = ((sleepSec / totalCatSec) * 100).toFixed(4);
+                    const otherPct = ((otherSec / totalCatSec) * 100).toFixed(4);
+                    const overallPct = ((sec / totalCatSec) * 100).toFixed(1);
+                    let barHTML = '';
+                    if (otherSec > 0) barHTML += `<div class="chart-bar-fill" style="width: ${otherPct}%; background: ${catColorMap[cat]};" title="其他: ${(otherSec/3600).toFixed(1)}h"></div>`;
+                    if (sleepSec > 0) barHTML += `<div class="chart-bar-fill" style="width: ${sleepPct}%; background: #2D5B8A;" title="睡眠: ${(sleepSec/3600).toFixed(1)}h"></div>`;
+                    catContainer.innerHTML += `<div class="chart-row"><div class="chart-label">${cat}</div><div class="chart-bar-container"><div style="display:flex; width:${overallPct}%; height:100%; border-radius:8px; overflow:hidden;">${barHTML}</div></div><div class="chart-value">${(sec/3600).toFixed(1)}h (${overallPct}%)</div></div>`;
+                }
             });
             if(catContainer.innerHTML === '') catContainer.innerHTML = `<p style="color:var(--muted-text); font-size:13px;">無資料</p>`;
         }
@@ -3644,11 +3958,20 @@ if (viewName === 'matrix') renderMatrixBoard();
                 if (totalSec > 0) { 
                     let trackedSec = 0;
                     state.categories.forEach(cat => { 
-                        const catSec = tasks.filter(t => t.category === cat).reduce((a,b)=>a+(b.timeSpent||0), 0); 
+                        const catTasks = tasks.filter(t => t.category === cat);
+                        const catSec = catTasks.reduce((a,b)=>a+(b.timeSpent||0), 0);
                         if (catSec > 0) { 
                             trackedSec += catSec;
-                            const catPctOfBar = ((catSec / totalSec) * 100).toFixed(4); 
-                            barSegmentsHTML += `<div class="chart-bar-fill" style="width: ${catPctOfBar}%; background: ${catColorMap[cat]};" title="${cat}: ${(catSec/3600).toFixed(1)}h"></div>`; 
+                            const sleepSec = catTasks.filter(t => (t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠'))).reduce((a, t) => a + (t.timeSpent || 0), 0);
+                            const otherCatSec = catSec - sleepSec;
+                            if (otherCatSec > 0) {
+                                const otherPct = ((otherCatSec / totalSec) * 100).toFixed(4);
+                                barSegmentsHTML += `<div class="chart-bar-fill" style="width: ${otherPct}%; background: ${catColorMap[cat]};" title="${cat}: ${(otherCatSec/3600).toFixed(1)}h"></div>`; 
+                            }
+                            if (sleepSec > 0) {
+                                const sleepPct = ((sleepSec / totalSec) * 100).toFixed(4);
+                                barSegmentsHTML += `<div class="chart-bar-fill" style="width: ${sleepPct}%; background: #2D5B8A;" title="睡眠: ${(sleepSec/3600).toFixed(1)}h"></div>`; 
+                            }
                         } 
                     });
                     const otherSec = totalSec - trackedSec;
@@ -3822,15 +4145,16 @@ if (viewName === 'matrix') renderMatrixBoard();
         else if (currentTrendPeriod === 'year') { yMax = 370; yTarget = 365; unitStr = 'd'; divBy = 86400; }
 
         // Helper to draw SVG lines and Y-axis
-        const renderSVGAxes = (svgW, labelPrefix) => {
+        const renderSVGAxes = (svgW, labelPrefix, customYMax = null) => {
+            const actualYMax = customYMax !== null ? customYMax : yMax;
             let svg = '';
             for (let h = 0; h <= 4; h++) {
                 const y = 140 - (h / 4) * 110;
                 svg += `<line x1="30" y1="${y}" x2="${svgW}" y2="${y}" stroke="#E0E0E0" stroke-width="0.5" />`;
-                const yVal = (yMax * (h / 4)).toFixed(0);
+                const yVal = (actualYMax * (h / 4)).toFixed(0);
                 svg += `<text x="25" y="${y + 4}" text-anchor="end" font-size="10" fill="var(--muted-text)">${yVal}</text>`;
             }
-            if (yTarget > 0) {
+            if (yTarget > 0 && customYMax === null) {
                 const tY = 140 - (yTarget / yMax) * 110;
                 svg += `<line x1="30" y1="${tY}" x2="${svgW}" y2="${tY}" stroke="#CCCCCC" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5" />`;
                 svg += `<text x="${svgW - 2}" y="${tY - 5}" text-anchor="end" font-size="10" fill="var(--muted-text)">${yTarget}${unitStr}</text>`;
@@ -3868,12 +4192,21 @@ if (viewName === 'matrix') renderMatrixBoard();
                 const x = 30 + (i+0.5) * ((svgW-30)/bucketCount); const y = 140 - (val / yMax) * 110;
                 return { x, y, val, label: b.label };
             });
+            const pointsSleep = bucketData.map((b, i) => {
+                const sleepTasks = state.tasks.filter(t => t.status === 'completed' && t.completedAt && ((t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠'))) && new Date(t.completedAt) >= b.start && new Date(t.completedAt) <= b.end);
+                const val = sleepTasks.reduce((a, t) => a + (t.timeSpent || 0), 0) / divBy;
+                const x = 30 + (i+0.5) * ((svgW-30)/bucketCount); const y = 140 - (val / yMax) * 110;
+                return { x, y, val, label: b.label };
+            });
             
             if (pointsEffort.length > 1) {
                 svg += `<polyline fill="none" stroke="var(--primary-color)" stroke-width="2.5" points="${pointsEffort.map(p => `${p.x},${p.y}`).join(' ')}" />`;
             }
             if (pointsRest.length > 1) {
                 svg += `<polyline fill="none" stroke="#9C27B0" stroke-width="2.5" stroke-dasharray="5,5" points="${pointsRest.map(p => `${p.x},${p.y}`).join(' ')}" />`;
+            }
+            if (pointsSleep.length > 1) {
+                svg += `<polyline fill="none" stroke="#2D5B8A" stroke-width="2.5" stroke-dasharray="2,4" points="${pointsSleep.map(p => `${p.x},${p.y}`).join(' ')}" />`;
             }
             pointsEffort.forEach(p => {
                 svg += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--primary-color)"><title>投入: ${p.val.toFixed(1)}${unitStr}</title></circle>`;
@@ -3882,11 +4215,15 @@ if (viewName === 'matrix') renderMatrixBoard();
             pointsRest.forEach(p => {
                 svg += `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#9C27B0"><title>休息: ${p.val.toFixed(1)}${unitStr}</title></circle>`;
             });
+            pointsSleep.forEach(p => {
+                svg += `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#2D5B8A"><title>睡眠: ${p.val.toFixed(1)}${unitStr}</title></circle>`;
+            });
             svg += `</svg>`;
             
-            let legendHTML = `<div style="display:flex; justify-content:center; gap: 20px; margin-bottom: 10px; font-size: 13px; font-weight: bold;">
+            let legendHTML = `<div style="display:flex; justify-content:center; flex-wrap:wrap; gap: 20px; margin-bottom: 10px; font-size: 13px; font-weight: bold;">
                 <span style="color:var(--primary-color); display:flex; align-items:center; gap:5px;"><span style="display:inline-block; width:20px; height:3px; background:var(--primary-color);"></span> 投入時間</span>
                 <span style="color:#9C27B0; display:flex; align-items:center; gap:5px;"><span style="display:inline-block; width:20px; height:3px; background:repeating-linear-gradient(to right, #9C27B0 0, #9C27B0 4px, transparent 4px, transparent 8px);"></span> 休息與恢復</span>
+                <span style="color:#2D5B8A; display:flex; align-items:center; gap:5px;"><span style="display:inline-block; width:20px; height:3px; background:repeating-linear-gradient(to right, #2D5B8A 0, #2D5B8A 2px, transparent 2px, transparent 6px);"></span> 睡眠時間</span>
             </div>`;
             
             workHrsContainer.innerHTML = legendHTML + svg;
@@ -3895,14 +4232,19 @@ if (viewName === 'matrix') renderMatrixBoard();
         // --- Chart 2: Value Mix Stacked Bar ---
         const valueMixContainer = document.getElementById('trend-valuemix-chart');
         if (valueMixContainer) {
-            const valColorsMap = { investment: '#4CAF50', maintenance: '#4A90E2', consumption: '#E65C5C', unclassified: '#9E9E9E' };
+            const valColorsMap = { investment: '#4CAF50', maintenance: '#4A90E2', consumption: '#E65C5C', sleep: '#2D5B8A', unclassified: '#9E9E9E' };
             
             // Calculate Stats
             let statsHTML = '<div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:15px 20px; margin-bottom:20px; font-size:13px; font-weight:bold; background:var(--input-bg); padding:20px; border-radius:12px; line-height:1.6; border:1px solid var(--border-color);">';
-            const types = ['investment', 'maintenance', 'consumption', 'unclassified'];
-            const labels = { investment: '投資', maintenance: '維持', consumption: '消耗', unclassified: '未定' };
+            const types = ['investment', 'maintenance', 'consumption', 'sleep', 'unclassified'];
+            const labels = { investment: '投資', maintenance: '維持', consumption: '消耗', sleep: '睡眠', unclassified: '未定' };
             types.forEach(type => {
-                let vals = bucketData.map(b => b.tasks.filter(t => (t.valueType || 'unclassified') === type).reduce((a, t) => a + (t.timeSpent || 0), 0) / divBy);
+                let vals = bucketData.map(b => b.tasks.filter(t => {
+                    const isSleep = (t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠'));
+                    if (type === 'sleep') return isSleep;
+                    if (isSleep) return false;
+                    return (t.valueType || 'unclassified') === type;
+                }).reduce((a, t) => a + (t.timeSpent || 0), 0) / divBy);
                 let mean = vals.reduce((a,b)=>a+b,0) / (vals.length || 1);
                 let variance = vals.reduce((a,b)=>a+Math.pow(b-mean,2),0) / (vals.length || 1);
                 let sd = Math.sqrt(variance);
@@ -3922,10 +4264,15 @@ if (viewName === 'matrix') renderMatrixBoard();
                 const isDark = document.body.classList.contains('dark-theme');
                 const rowBg = isWeekend ? (isDark ? 'rgba(255, 235, 59, 0.35)' : 'rgba(255, 249, 196, 0.4)') : 'transparent';
                 const total = b.tasks.reduce((a, t) => a + (t.timeSpent || 0), 0) || 1;
-                const types = ['investment', 'maintenance', 'consumption', 'unclassified'];
+                const types = ['investment', 'maintenance', 'consumption', 'sleep', 'unclassified'];
                 let barHTML = '';
                 types.forEach(type => {
-                    const sec = b.tasks.filter(t => (t.valueType || 'unclassified') === type).reduce((a, t) => a + (t.timeSpent || 0), 0);
+                    const sec = b.tasks.filter(t => {
+                        const isSleep = (t.activity === '🛏️ 睡眠' || t.activity === '💤 睡眠') || (t.name && t.name.includes('睡眠'));
+                        if (type === 'sleep') return isSleep;
+                        if (isSleep) return false;
+                        return (t.valueType || 'unclassified') === type;
+                    }).reduce((a, t) => a + (t.timeSpent || 0), 0);
                     if (sec > 0) {
                         const pct = (sec / total * 100).toFixed(4);
                         barHTML += `<div class="chart-bar-fill" style="width: ${pct}%; background:${valColorsMap[type]};" title="${type}: ${pct}%"></div>`;
@@ -3953,9 +4300,9 @@ if (viewName === 'matrix') renderMatrixBoard();
         if (tagsContainer) {
             let localYMax = yMax;
             if (currentTrendPeriod === 'day') { localYMax = 12; }
-            else if (currentTrendPeriod === 'week') { localYMax = 84; }
-            else if (currentTrendPeriod === 'month') { localYMax = 16; }
-            else if (currentTrendPeriod === 'year') { localYMax = 185; }
+            else if (currentTrendPeriod === 'week') { localYMax = 66; }
+            else if (currentTrendPeriod === 'month') { localYMax = 18; }
+            else if (currentTrendPeriod === 'year') { localYMax = 100; }
             
             let itemW = 55;
             let svgW = Math.max(bucketCount * itemW + 30, 200);
@@ -3971,7 +4318,7 @@ if (viewName === 'matrix') renderMatrixBoard();
                     }
                 });
             }
-            svg += renderSVGAxes(svgW, 'tags').replace(new RegExp(yMax, 'g'), localYMax);
+            svg += renderSVGAxes(svgW, 'tags', localYMax);
 
             const tgColors = ['#1ABC9C', '#9B59B6', '#E67E22', '#34495E', '#F1C40F', '#E74C3C', '#2ECC71'];
             
@@ -4085,15 +4432,41 @@ if (viewName === 'matrix') renderMatrixBoard();
     function importJSON(e) { const file = e.target.files[0]; if (!file) return; const reader = new FileReader(); reader.onload = function(evt) { try { const parsed = JSON.parse(evt.target.result); if (Array.isArray(parsed)) { state.tasks = parsed; saveData(); renderAll(); showToast('📥 帳本還原成功！'); } else showToast('❌ 檔案格式不正確'); } catch (err) { showToast('❌ 解析錯誤'); } }; reader.readAsText(file); }
     function exportFilteredCSV() {
         const headers = ['結算日期', '事項名稱', '分鐘數', '🎭 型態 (Activity)', '吸附標籤', '面向類別', '價值類型', '特殊標示', '🏢 法人 (Corporate)', '備註欄位', '追蹤對象', '交辦人', '預計追蹤日期'];
-        let csv = "\\uFEFF" + headers.join(",") + "\\r\\n"; let dataset = getFilteredHistoryDataset(); dataset.sort((a,b) => b.completedAt - a.completedAt);
+        let csv = "\uFEFF" + headers.join(",") + "\r\n"; let dataset = getFilteredHistoryDataset(); dataset.sort((a,b) => b.completedAt - a.completedAt);
         if(dataset.length === 0) { showToast('⚠️ 當前條件無數據可下載'); return; }
         dataset.forEach(t => {
             const dStr = formatDateString(new Date(t.completedAt || t.createdAt || Date.now())); const mins = Math.round((t.timeSpent || 0) / 60);
             let tags = []; let m; const tagRegex = /(?:#|🏷️)([^\s#🏷️]+)/g; let safeName = t.name || ''; while ((m = tagRegex.exec(safeName)) !== null) { tags.push(m[1]); }
             const r = [ dStr, `"${safeName.replace(/"/g, '""')}"`, mins, `"${t.activity || ''}"`, `"${tags.join(';')}"`, t.category || '', t.valueType || '', `"${(t.customMarkers||[]).join(';')}"`, `"${(t.corporateEntity || '').replace(/"/g, '""')}"`, `"${(t.notes || '').replace(/"/g, '""')}"`, `"${(t.trackingTarget || '').replace(/"/g, '""')}"`, `"${(t.assigner || '').replace(/"/g, '""')}"`, t.trackingTime || '' ];
-            csv += r.join(",") + "\\r\\n";
+            csv += r.join(",") + "\r\n";
         });
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob); const link = document.createElement("a"); link.setAttribute("href", url); link.setAttribute("download", `Time-Portfolio-V4.5-Report.csv`); document.body.appendChild(link); link.click(); document.body.removeChild(link);
+    }
+
+    function exportContactsCSV() {
+        const headers = ['姓名/廠區', '英文名', '部門單位', '聯絡電話', '電子郵件', '標籤'];
+        let csv = "\uFEFF" + headers.join(",") + "\r\n";
+        let dataset = state.contacts || [];
+        if(dataset.length === 0) { showToast('⚠️ 無通訊錄資料可匯出'); return; }
+        dataset.forEach(c => {
+            const r = [
+                `"${(c.name || '').replace(/"/g, '""')}"`,
+                `"${(c.enName || '').replace(/"/g, '""')}"`,
+                `"${(c.department || '').replace(/"/g, '""')}"`,
+                `"${(c.phone || '').replace(/"/g, '""')}"`,
+                `"${(c.email || '').replace(/"/g, '""')}"`,
+                `"${(c.tags || '').replace(/"/g, '""')}"`
+            ];
+            csv += r.join(",") + "\r\n";
+        });
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); 
+        const url = URL.createObjectURL(blob); 
+        const link = document.createElement("a"); 
+        link.setAttribute("href", url); 
+        link.setAttribute("download", `Contacts-Export.csv`); 
+        document.body.appendChild(link); 
+        link.click(); 
+        document.body.removeChild(link);
     }
     
     function clearAllData() { showConfirm('清空帳本', '🚨 確定清除所有本地資料嗎？此動作不可逆。', () => { state.tasks = []; state.lastPausedTaskId = null; state.isResting = false; state.restTime = 0; state.suggestions = []; saveData(); renderAll(); showToast('✨ 空帳本已就緒'); }); }
