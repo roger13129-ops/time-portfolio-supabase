@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="apple-touch-icon" href="app-icon.jpg">
     <link rel="manifest" href="manifest.json">
-    <title>目標是成為時間管理大師 • V4.8</title>
+    <title>Time Portfolio • V4.9</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏳</text></svg>">
     <style>
         :root {
@@ -132,7 +132,7 @@
 
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0, 0.5); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
         .modal-overlay.active { display: flex; opacity: 1; }
-        .modal-card { background: var(--card-bg); width: 100%; max-width: 550px; border-radius: 24px; padding: 35px; box-shadow: 0 20px 50px rgba(0,0,0, 0.3); max-height: 90vh; overflow-y: auto; transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); }
+        .modal-card { background: var(--card-bg); width: 100%; max-width: 550px; border-radius: 24px; padding: 35px; box-shadow: 0 20px 50px rgba(0,0,0, 0.3); max-height: 85vh; overflow-y: auto; overscroll-behavior: contain; transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid var(--border-color); }
         .modal-overlay.active .modal-card { transform: scale(1); }
         
         .modal-header { margin-bottom: 25px; text-align: center; }
@@ -396,7 +396,7 @@
                     <h1>Time Portfolio</h1>
                     <button class="btn-settings" onclick="openSettingsModal()" title="介面模組開關與顯示設定">⚙️</button>
                 </div>
-                <p>目標是成為時間管理大師 • V4.8</p>
+                <p>目標是成為時間管理大師 • V4.9</p>
             </div>
             <button id="main-logout-btn" title="登出系統" style="font-size: 14px; font-weight: bold; color: var(--danger-color, #E53935); background: transparent; border: 1.5px solid var(--danger-color, #E53935); padding: 6px 20px; border-radius: 20px; cursor: pointer; transition: all 0.2s ease;" onmouseover="this.style.background='var(--danger-color, #E53935)'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='var(--danger-color, #E53935)';">登出</button>
         </div>
@@ -875,7 +875,7 @@
             
             <div style="overflow-x:auto;">
                 <table class="history-table">
-                    <thead><tr><th title="結算日期">日期</th><th>事項名稱與備註</th><th>耗時(分)</th><th title="時間價值屬性">屬性</th><th title="歸屬類別">類別</th><th title="作戰日">日型</th><th>管理</th></tr></thead>
+                    <thead><tr><th title="結算日期">日期</th><th>事項名稱與備註</th><th>耗時(分)</th><th title="時間價值屬性">屬性</th><th title="歸屬類別">類別</th><th title="作氏日">日型</th><th title="五大財富">財富</th><th title="財富量級">量級</th><th>管理</th></tr></thead>
                     <tbody id="history-table-body"></tbody>
                 </table>
             </div>
@@ -947,7 +947,8 @@
             <div id="sugg-log-area" style="display:none; padding: 20px; background: var(--input-bg); border-radius: 12px; border: 1px solid var(--border-color);">
                 <h3 style="color:var(--primary-color); margin-bottom:15px;">歷次版本與修改說明</h3>
                 <div style="display:flex; flex-direction:column; gap:15px; font-size:14px; color:var(--text-color); line-height:1.6;">
-                    <div><strong style="color:var(--secondary-color);">V4.8 (Current):</strong> 進行中/經手時數計算邏輯拆分並優化排除條件、新增「五大財富」維度與量級標籤，並推出全新的「能量 vs 財富」群組投資象限圖與圓餅視覺化。</div>
+                    <div><strong style="color:var(--secondary-color);">V4.9 (Current):</strong> 全面升級生命週曆，新增「深度自省指標」與「高階專屬指標」(運動天數、碎片化、核心產出等)；Top 3 自動加總同名任務；優化睡眠時數追蹤，並強制將睡眠鎖定為恢復型。</div>
+                    <div style="margin-top:5px;"><strong style="color:var(--secondary-color);">V4.8:</strong> 進行中/經手時數計算邏輯拆分並優化排除條件、新增「五大財富」維度與量級標籤，並推出全新的「能量 vs 財富」群組投資象限圖與圓餅視覺化。</div>
                     <div><strong style="color:var(--secondary-color);">V4.7:</strong> 修正快捷啟動任務暫停恢復機制、優化分析中心下拉選單為單純的工作/非工作切換、修復未結算任務於日期區間過濾失效之問題、修復分析圖表誤納入未結算任務之問題。</div>
                     <div><strong style="color:var(--secondary-color);">V4.6:</strong> 非工作深色主題切換、網格月曆三時數占比、快捷計時與休息防沉睡背景化統一、通訊錄中英與部門分離、子任務編輯排序與解析快捷鍵、獨立出 Life Calendar 模組並可計算摩擦與三維時間消耗占比倒數。</div>
                     <div><strong style="color:var(--secondary-color);">V3.7.1:</strong> 修復任務編輯模式下勾選標籤時的顯示異常與互斥衝突。</div>
@@ -1035,6 +1036,38 @@
                     <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">按鈕顏色</label>
                     <input type="color" id="qs-edit-color" class="qs-color-picker" value="#1A73E8" style="background:var(--input-bg); border: 2px solid var(--border-color); padding: 0; outline: none; width:60px; height:32px;">
                 </div>
+
+                <div style="display:flex; gap:10px; align-items: flex-end;">
+                    <div style="flex:1;">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">價值屬性 (預設)</label>
+                        <select id="qs-edit-valType" class="filter-select" style="width:100%;">
+                            <option value="unclassified">👤 稍後分類</option>
+                            <option value="maintenance">⚙️ 維持型</option>
+                            <option value="investment">🚀 投資型</option>
+                            <option value="consumption">🛑 消耗型</option>
+                        </select>
+                    </div>
+                    <div style="flex:1;">
+                        <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">財富量級 (預設)</label>
+                        <select id="qs-edit-wealthLevel" class="filter-select" style="width:100%;">
+                            <option value="0">無 (0)</option>
+                            <option value="1">低 (1)</option>
+                            <option value="2">中 (2)</option>
+                            <option value="3">高 (3)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="font-size:12px; color:var(--muted-text); display:block; margin-bottom:4px;">五大財富 (預設)</label>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap;" id="qs-edit-wealthTypes">
+                        <label class="option-checkbox"><input type="checkbox" class="qs-edit-wt-cb" value="金錢"><span class="checkbox-custom"></span> 💰 金錢</label>
+                        <label class="option-checkbox"><input type="checkbox" class="qs-edit-wt-cb" value="健康"><span class="checkbox-custom"></span> 🏃 健康</label>
+                        <label class="option-checkbox"><input type="checkbox" class="qs-edit-wt-cb" value="人際"><span class="checkbox-custom"></span> 🤝 人際</label>
+                        <label class="option-checkbox"><input type="checkbox" class="qs-edit-wt-cb" value="目標"><span class="checkbox-custom"></span> 🎯 目標</label>
+                        <label class="option-checkbox"><input type="checkbox" class="qs-edit-wt-cb" value="時間"><span class="checkbox-custom"></span> ⏳ 時間</label>
+                    </div>
+                </div>
             </div>
             
             <div style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
@@ -1043,6 +1076,46 @@
             </div>
         </div>
     </div>
+
+<div class="modal-overlay" id="retro-entry-modal">
+    <div class="modal-card" style="max-width: 450px;">
+        <div class="modal-header"><h3>⏱️ 補登未紀錄時段</h3><p>請確認起訖時間並輸入任務內容</p></div>
+        <div style="display:flex; flex-direction:column; gap: 15px; margin-bottom: 20px;">
+            <div style="display:flex; gap:15px;">
+                <div style="flex:1;">
+                    <label style="font-size:13px; font-weight:bold; color:var(--secondary-color); display:block; margin-bottom:6px;">開始時間</label>
+                    <input type="time" id="retro-start" class="inline-input" style="font-family: monospace; width:100%; box-sizing:border-box;">
+                </div>
+                <div style="flex:1;">
+                    <label style="font-size:13px; font-weight:bold; color:var(--secondary-color); display:block; margin-bottom:6px;">結束時間</label>
+                    <input type="time" id="retro-end" class="inline-input" style="font-family: monospace; width:100%; box-sizing:border-box;">
+                </div>
+            </div>
+            
+            <div>
+                <input type="text" id="retro-name" class="inline-input" placeholder="🎯 任務名稱 (例：突發會議)" style="width:100%; box-sizing:border-box; font-size:15px; font-weight:bold;" oninput="handleInputAutocomplete(event, 'retro-ac')">
+                <div id="retro-ac" class="autocomplete-list"></div>
+            </div>
+            
+            <div style="display:flex; gap:15px;">
+                <select id="retro-mode" class="inline-input" style="flex:1;" onchange="updateRetroActivityOptions()">
+                    <option value="work">💼 工作模式</option>
+                    <option value="non-work">🏖️ 非工作模式</option>
+                </select>
+                <select id="retro-activity" class="inline-input" style="flex:1;">
+                    <!-- Auto-populated by JS -->
+                </select>
+            </div>
+            
+            <input type="text" id="retro-notes" class="inline-input" placeholder="📝 任務備註/心得..." style="width:100%; box-sizing:border-box;">
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; gap:12px;">
+            <button class="btn btn-outline" style="flex:1;" onclick="closeRetroEntryModal()">❌ 取消</button>
+            <button class="btn btn-complete" style="flex:1;" onclick="submitRetroEntry()">💾 儲存補登</button>
+        </div>
+    </div>
+</div>
 
 <div class="modal-overlay" id="quick-finish-modal">
     <div class="modal-card" style="max-width: 450px;">
@@ -1055,25 +1128,32 @@
                 <datalist id="qf-tag-list"></datalist>
             </div>
             <div id="qf-def-container" style="display:none; font-size:12px; color:var(--muted-text); background:var(--input-bg); padding:6px 10px; border-radius:4px;"></div>
+            
+            <!-- Aggregate Template Grid -->
+            <div id="qf-aggregate-grid" style="display:none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin-bottom: 5px;"></div>
+
+            <div id="qf-standard-selectors" style="display:flex; flex-direction:column; gap: 12px;">
+                <div id="qf-mode-container" style="display:none; gap:10px; align-items:center;">
+                    <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">模式歸屬:</span>
+                    <select id="qf-mode" class="inline-input" style="flex:1;" onchange="updateQfActivityOptions()">
+                        <option value="work">💼 工作模式</option>
+                        <option value="non-work">🏖️ 非工作模式</option>
+                    </select>
+                </div>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">🎭 型態 (Activity):</span>
+                    <select id="qf-activity" class="inline-input" style="flex:1;"></select>
+                </div>
+                <div style="display:flex; gap:10px; align-items:center;">
+                    <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">價值屬性:</span>
+                    <select id="qf-val" class="inline-input" style="flex:1;">
+                        <option value="unclassified">👤 稍後分類</option><option value="maintenance">⚙️ 維持型</option><option value="investment">🚀 投資型</option><option value="consumption">🛑 消耗型</option>
+                    </select>
+                </div>
+            </div>
+
             <input type="text" id="qf-notes" class="inline-input" placeholder="📝 任務備註/心得...">
             <input type="text" id="qf-flow-notes" class="inline-input" placeholder="💰 時間結算說明...">
-            <div id="qf-mode-container" style="display:none; gap:10px; align-items:center;">
-                <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">模式歸屬:</span>
-                <select id="qf-mode" class="inline-input" style="flex:1;" onchange="updateQfActivityOptions()">
-                    <option value="work">💼 工作模式</option>
-                    <option value="non-work">🏖️ 非工作模式</option>
-                </select>
-            </div>
-            <div style="display:flex; gap:10px; align-items:center;">
-                <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">🎭 型態 (Activity):</span>
-                <select id="qf-activity" class="inline-input" style="flex:1;"></select>
-            </div>
-            <div style="display:flex; gap:10px; align-items:center;">
-                <span style="font-size:13px; font-weight:bold; color:var(--secondary-color);">價值屬性:</span>
-                <select id="qf-val" class="inline-input" style="flex:1;">
-                    <option value="unclassified">👤 稍後分類</option><option value="maintenance">⚙️ 維持型</option><option value="investment">🚀 投資型</option><option value="consumption">🛑 消耗型</option>
-                </select>
-            </div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 12px;">
             <button class="btn-cancel-flow" onclick="closeQuickFinishModal()">❌ 丟棄不存檔</button>
@@ -1101,6 +1181,16 @@
                 <div id="lw-top3-chart" style="display:flex; flex-direction:column; gap:8px;"></div>
             </div>
             
+            <div style="background:var(--input-bg); padding:15px; border-radius:12px; border:1px solid var(--border-color);">
+                <div style="font-size:13px; font-weight:bold; color:var(--secondary-color); margin-bottom:10px;">📊 深度自省指標</div>
+                <div id="lw-deep-metrics" style="display:flex; flex-direction:column; gap:8px; font-size:13px;"></div>
+            </div>
+            
+            <div style="background:var(--input-bg); padding:15px; border-radius:12px; border:1px solid var(--border-color);">
+                <div style="font-size:13px; font-weight:bold; color:var(--secondary-color); margin-bottom:10px;">📈 高階專屬指標</div>
+                <div id="lw-adv-metrics" style="display:flex; flex-direction:column; gap:8px; font-size:13px;"></div>
+            </div>
+            
             <div>
                 <label style="font-size:13px; font-weight:bold; color:var(--secondary-color);">✍️ 本週戰術與自省檢討</label>
                 <div style="position:relative;">
@@ -1126,6 +1216,7 @@
                 <button class="flow-btn btn-val-invest" id="f-v-investment" onclick="selectValueType('investment')">🚀 投資型</button>
                 <button class="flow-btn btn-val-maintain" id="f-v-maintenance" onclick="selectValueType('maintenance')">⚙️ 維持型</button>
                 <button class="flow-btn btn-val-consume" id="f-v-consumption" onclick="selectValueType('consumption')">🛑 消耗型</button>
+                <button class="flow-btn" id="f-v-recovery" style="color:var(--primary-color); border-color:var(--primary-color);" onclick="selectValueType('recovery')">☕ 恢復型</button>
                 <button class="flow-btn btn-val-later" id="f-v-unclassified" onclick="selectValueType('unclassified')">👤 稍後分類</button>
             </div>
         </div>
@@ -1425,6 +1516,29 @@
         return;
     }
 
+    function runDataSanitization() {
+        let changed = false;
+        state.tasks.forEach(t => {
+            if (t.timeSpent === undefined || isNaN(t.timeSpent) || t.timeSpent < 0) {
+                t.timeSpent = 0;
+                changed = true;
+            }
+            if (t.status === 'completed') {
+                if (!t.valueType || !['investment', 'maintenance', 'consumption', 'recovery', 'unclassified'].includes(t.valueType)) {
+                    t.valueType = 'unclassified';
+                    changed = true;
+                }
+                if (!t.completedAt) {
+                    t.completedAt = t.createdAt || Date.now();
+                    changed = true;
+                }
+            }
+        });
+        if (changed) {
+            console.log("🧹 Data Sanitization completed. Fixed dirty records.");
+        }
+    }
+
     function migrateCategoriesToNonWork() {
         let migrated = false;
 
@@ -1461,6 +1575,32 @@
                 'non-work': ['🧹 家務', '🚰 盥洗', '🛏️ 睡眠', '🎮 休閒', '📖 閱讀']
             };
             migrated = true;
+        }
+
+        if (state.activityTypes && Array.isArray(state.activityTypes['non-work'])) {
+            if (!state.activityTypes['non-work'].some(a => a.includes('盥洗'))) {
+                state.activityTypes['non-work'].push('🚰 盥洗');
+                migrated = true;
+            }
+            if (!state.activityTypes['non-work'].some(a => a.includes('運動'))) {
+                state.activityTypes['non-work'].push('💪 運動');
+                migrated = true;
+            }
+        }
+
+        if (state.quickButtons) {
+            state.quickButtons.forEach(qb => {
+                if (qb.wealthTypes) {
+                    qb.wealthTypes = qb.wealthTypes.map(w => {
+                        if (w.includes('財務')) return '金錢';
+                        if (w.includes('職涯')) return '目標';
+                        if (w.includes('關係')) return '人際';
+                        if (w.includes('時間/自我')) return '時間';
+                        if (w.includes('💎 健康')) return '健康';
+                        return w;
+                    });
+                }
+            });
         }
 
         if (!localStorage.getItem('tp_t_shape_applied_v9')) {
@@ -1532,6 +1672,8 @@
                 
                 isDataLoaded = true;
                 migrateCategoriesToNonWork();
+                runDataSanitization();
+                saveData();
                 applySettings(); // Fix: Apply view settings on load
                 renderAll();
                 return;
@@ -1544,6 +1686,7 @@
         loadDataLocal();
         isDataLoaded = true;
         migrateCategoriesToNonWork();
+        runDataSanitization();
         saveData();
         applySettings(); // Fix: Apply view settings on load
         renderAll();
@@ -1599,6 +1742,19 @@
         if (!localStorage.getItem('tp_workmode_fixed_v5')) {
             state.tasks.forEach(t => { t.workMode = (state.categoryGroups && state.categoryGroups.nonWork && state.categoryGroups.nonWork.includes(t.category)) ? 'non-work' : 'work'; });
             localStorage.setItem('tp_workmode_fixed_v5', 'true');
+            needSave = true;
+        }
+        
+        if (!localStorage.getItem('tp_act_migrated_v46_2')) {
+            if (state.activityTypes && state.activityTypes['non-work'] && !Array.isArray(state.activityTypes)) {
+                const requiredActs = ['🛁 盥洗', '🍽️ 飲食', '🛒 購物'];
+                requiredActs.forEach(act => {
+                    if (!state.activityTypes['non-work'].some(a => a.includes(act.replace(/^[^\s]+\s/, '')))) {
+                        state.activityTypes['non-work'].push(act);
+                    }
+                });
+            }
+            localStorage.setItem('tp_act_migrated_v46_2', 'true');
             needSave = true;
         }
         
@@ -1758,8 +1914,11 @@
             if(activeQT.quickType === id) return; 
         }
 
-        const qb = state.quickButtons.find(b => b.id === id);
-        if (!qb) return;
+        let qb = state.quickButtons.find(b => b.id === id);
+        if (!qb) {
+            if (id === 'btn-qs-nonwork-aggregate') qb = { id: id, mode: 'non-work', defaultName: '🏡 非工作', activity: '' };
+            else return;
+        }
 
         if (state.isResting) stopRest();
         
@@ -1768,6 +1927,7 @@
             if (t.status === 'active') { 
                 if (t.lastTick) t.timeSpent = Number(t.timeSpent || 0) + Math.floor((now - t.lastTick) / 1000); 
                 t.status = 'paused'; 
+                closeSession(t, now);
                 delete t.lastTick; 
                 state.lastPausedTaskId = t.id; 
             } 
@@ -1777,6 +1937,7 @@
         if (existingPausedQT) {
             existingPausedQT.status = 'active';
             existingPausedQT.lastTick = Date.now();
+            openSession(existingPausedQT, existingPausedQT.lastTick);
             saveData(); renderAll(); updateQuickButtonsUI(); showToast(`▶️ 恢復快捷計時: ${qb.defaultName}`);
             return;
         }
@@ -1785,18 +1946,28 @@
 
         const newTask = {
             id: Date.now(), name: qb.defaultName, notes: "", status: 'active', lastTick: Date.now(), timeSpent: 0, 
-            createdAt: Date.now(), valueType: qb.valType || 'unclassified', category: defCat, dayType: 'auto', customMarkers: [], activity: qb.activity, quickType: id, isQuickTask: true, subtasks: [], workMode: qb.mode
+            createdAt: Date.now(), valueType: qb.valType || 'unclassified', category: defCat, dayType: 'auto', customMarkers: [], activity: qb.activity, quickType: id, isQuickTask: true, subtasks: [], workMode: qb.mode,
+            wealthLevel: qb.wealthLevel || 0, wealthTypes: qb.wealthTypes ? [...qb.wealthTypes] : []
         };
+        openSession(newTask, newTask.createdAt);
         if(id === 'btn-qs-interrupt') newTask.customMarkers.push(state.markerTypes.find(m=>m.includes('插單'))||'🚨 插單任務');
         state.tasks.push(newTask);
         saveData(); renderAll(); updateQuickButtonsUI(); showToast(`🚀 已啟動快捷計時: ${qb.defaultName}`);
     }
 
     function updateQuickButtonsUI() {
-        state.quickButtons.forEach(qb => {
+        state.quickButtons.filter(qb => qb.mode === 'work' || qb.mode === 'both').forEach(qb => {
             const btn = document.getElementById(qb.id);
             if(btn) { 
                 const isActive = state.tasks.some(t => t.status === 'active' && t.isQuickTask && t.quickType === qb.id); 
+                isActive ? btn.classList.add('running') : btn.classList.remove('running'); 
+            }
+        });
+        
+        ['btn-qs-nonwork-aggregate'].forEach(id => {
+            const btn = document.getElementById(id);
+            if(btn) { 
+                const isActive = state.tasks.some(t => t.status === 'active' && t.isQuickTask && t.quickType === id); 
                 isActive ? btn.classList.add('running') : btn.classList.remove('running'); 
             }
         });
@@ -1808,9 +1979,14 @@
         
         let html = '';
         state.quickButtons.forEach(qb => {
-            html += `<button id="${qb.id}" class="btn-qs" onclick="toggleQuickTask('${qb.id}')" title="點擊啟動/結算" style="color: ${qb.color};">${qb.name}</button>`;
+            if (qb.mode === 'work' || qb.mode === 'both') {
+                html += `<button id="${qb.id}" class="btn-qs" onclick="toggleQuickTask('${qb.id}')" title="點擊啟動/結算" style="color: ${qb.color};">${qb.name}</button>`;
+            }
         });
-        html += `<button id="btn-rest-toggle" class="btn" onclick="toggleRest()" style="background:var(--success-color); color:white; font-size: 13px; padding: 6px 12px; margin-left: 5px;">☕ 進入休息模式</button>`;
+        html += `
+            <button id="btn-qs-nonwork-aggregate" class="btn-qs" onclick="toggleQuickTask('btn-qs-nonwork-aggregate')" title="非工作快速計時" style="color: #FF9800;">🏡 非工作</button>
+            <button id="btn-rest-toggle" class="btn" onclick="toggleRest()" style="background:var(--success-color); color:white; font-size: 13px; padding: 6px 12px; margin-left: 5px;">☕ 進入休息模式</button>
+        `;
         container.innerHTML = html;
         updateQuickButtonsUI();
     }
@@ -1840,22 +2016,30 @@
         const task = state.tasks.find(t => t.id === id); if(!task) return;
         document.getElementById('qf-task-id').value = id;
         
+        let qb = state.quickButtons.find(b => b.id === task.quickType);
+        
         let qfName = task.name;
-        let qfTag = '';
-        const qb = state.quickButtons.find(b => b.id === task.quickType);
-        if (qb && qb.tag) qfTag = qb.tag;
+        let qfTag = qb && qb.tag ? qb.tag : '';
         
         document.getElementById('qf-name').value = qfName;
         document.getElementById('qf-tag').value = qfTag;
         document.getElementById('qf-notes').value = task.notes || '';
         document.getElementById('qf-flow-notes').value = task.flowNotes || '';
         
+        const qfValSelect = document.getElementById('qf-val');
+        qfValSelect.value = task.valueType || (qb ? qb.valType : 'unclassified');
+        if (qfName.includes('睡') || (qb && qb.activity && qb.activity.includes('睡')) || (task.activity && task.activity.includes('睡'))) {
+            qfValSelect.value = 'recovery';
+            qfValSelect.disabled = true;
+        } else {
+            qfValSelect.disabled = false;
+        }
+        
         let allTags = new Set();
         state.tagGroups.forEach(tg => tg.tags.forEach(t => allTags.add(t)));
         const tagDatalist = document.getElementById('qf-tag-list');
         tagDatalist.innerHTML = '';
         allTags.forEach(t => tagDatalist.innerHTML += `<option value="${t}">`);
-        document.getElementById('qf-val').value = task.valueType || 'unclassified';
         
         const defContainer = document.getElementById('qf-def-container');
         if (qb && qb.definition) {
@@ -1863,36 +2047,97 @@
             defContainer.textContent = `📝 定義：${qb.definition}`;
         } else {
             defContainer.style.display = 'none';
-            defContainer.textContent = '';
         }
 
-        const modeContainer = document.getElementById('qf-mode-container');
-        const modeSelect = document.getElementById('qf-mode');
+        const gridContainer = document.getElementById('qf-aggregate-grid');
+        const standardSelectors = document.getElementById('qf-standard-selectors');
         
-        let targetMode = state.workMode;
-        if (qb) {
-            if (qb.mode === 'both') {
-                modeContainer.style.display = 'flex';
-                targetMode = 'non-work'; 
-                modeSelect.value = targetMode;
+        if (task.quickType === 'btn-qs-nonwork-aggregate') {
+            gridContainer.style.display = 'grid';
+            standardSelectors.style.display = 'none';
+            
+            const targetMode = 'non-work';
+            const templates = state.quickButtons.filter(b => b.mode === targetMode || b.mode === 'both');
+            
+            let gridHTML = '';
+            templates.forEach(t => {
+                const bg = t.color || 'var(--accent-color)';
+                const tName = (t.name || '').replace(/"/g, '&quot;');
+                gridHTML += `<button type="button" class="btn" style="background:${bg}; color:#fff; padding:12px 5px; font-weight:bold; font-size:14px; border:none; border-radius:6px; cursor:pointer; transition: all 0.2s;" onclick="selectAggregateTemplate('${t.id}', '${targetMode}', event)">${tName}</button>`;
+            });
+            gridContainer.innerHTML = gridHTML;
+            document.getElementById('qf-mode').value = targetMode;
+            
+        } else {
+            gridContainer.style.display = 'none';
+            standardSelectors.style.display = 'flex';
+            
+            const modeContainer = document.getElementById('qf-mode-container');
+            const modeSelect = document.getElementById('qf-mode');
+            
+            let targetMode = state.workMode;
+            if (qb) {
+                if (qb.mode === 'both') {
+                    modeContainer.style.display = 'flex';
+                    targetMode = 'non-work'; 
+                    modeSelect.value = targetMode;
+                } else {
+                    modeContainer.style.display = 'none';
+                    targetMode = qb.mode;
+                }
             } else {
                 modeContainer.style.display = 'none';
-                targetMode = qb.mode;
             }
-        } else {
-            modeContainer.style.display = 'none';
-        }
 
-        const actSelect = document.getElementById('qf-activity'); actSelect.innerHTML = '<option value="">無</option>';
-        (state.activityTypes[targetMode] || []).forEach(a => actSelect.innerHTML += `<option value="${a}">${a}</option>`);
-        actSelect.value = task.activity || '';
-        
-        if (qb && qb.mode === 'both') {
-             actSelect.value = qb.activityNw || '';
-             document.getElementById('qf-val').value = qb.valType || 'unclassified';
+            const actSelect = document.getElementById('qf-activity'); actSelect.innerHTML = '<option value="">無</option>';
+            (state.activityTypes[targetMode] || []).forEach(a => actSelect.innerHTML += `<option value="${a}">${a}</option>`);
+            actSelect.value = task.activity || '';
+            
+            if (qb && qb.mode === 'both') {
+                 actSelect.value = qb.activityNw || '';
+                 document.getElementById('qf-val').value = qb.valType || 'unclassified';
+            }
         }
 
         document.getElementById('quick-finish-modal').classList.add('active');
+        document.getElementById('qf-name').focus();
+    }
+    
+    function selectAggregateTemplate(qbId, currentMode, event) {
+        const qb = state.quickButtons.find(b => b.id === qbId);
+        if(!qb) return;
+        
+        document.getElementById('qf-name').value = qb.defaultName || qb.name;
+        document.getElementById('qf-tag').value = qb.tag || '';
+        document.getElementById('qf-val').value = qb.valType || 'unclassified';
+        
+        const act = (qb.mode === 'both' && currentMode === 'non-work') ? (qb.activityNw || '') : (qb.activity || '');
+        
+        const actSelect = document.getElementById('qf-activity');
+        actSelect.innerHTML = '<option value="">無</option>';
+        (state.activityTypes[currentMode] || []).forEach(a => actSelect.innerHTML += `<option value="${a}">${a}</option>`);
+        actSelect.value = act;
+        
+        document.getElementById('qf-mode').value = currentMode;
+        
+        const defContainer = document.getElementById('qf-def-container');
+        if (qb.definition) {
+            defContainer.style.display = 'block';
+            defContainer.textContent = `📝 定義：${qb.definition}`;
+        } else {
+            defContainer.style.display = 'none';
+        }
+        
+        const gridContainer = document.getElementById('qf-aggregate-grid');
+        Array.from(gridContainer.children).forEach(btn => {
+            btn.style.boxShadow = 'none';
+            btn.style.transform = 'scale(1)';
+            btn.style.opacity = '0.6';
+        });
+        const clickedBtn = event.currentTarget;
+        clickedBtn.style.boxShadow = '0 0 0 3px var(--text-color)';
+        clickedBtn.style.transform = 'scale(1.02)';
+        clickedBtn.style.opacity = '1';
     }
     
     function closeQuickFinishModal() { 
@@ -1928,7 +2173,9 @@
             }
 
             task.isQuickTask = false; 
-            task.status = 'completed'; task.completedAt = Date.now();
+            const now = Date.now();
+            if (task.status === 'active') closeSession(task, now);
+            task.status = 'completed'; task.completedAt = now;
             saveData(); renderAll(); updateQuickButtonsUI(); showToast('✅ 快捷任務已結算歸檔');
         }
         document.getElementById('quick-finish-modal').classList.remove('active');
@@ -1988,22 +2235,47 @@
         saveData(); renderAll(); updateQuickButtonsUI(); showToast('☕ 已進入休息模式，作戰任務已全數暫停');
     }
     function stopRest() {
-        if (state.lastRestTick) state.restTime += Math.floor((Date.now() - state.lastRestTick) / 1000);
-        state.isResting = false; delete state.lastRestTick;
-        const btn = document.getElementById('btn-rest-toggle');
-        if (btn) { btn.style.background = "var(--success-color)"; btn.innerText = "☕ 進入休息模式"; }
-        if (state.restTime > 0) {
-            const mode = state.restWorkMode || state.workMode || 'work';
-            let defaultCat;
-            if (mode === 'work') {
-                defaultCat = state.categories.find(c => !state.categoryGroups || (state.categoryGroups.work && state.categoryGroups.work.includes(c))) || state.categories[0] || '💼 工作';
-            } else {
-                defaultCat = state.categories.find(c => state.categoryGroups && state.categoryGroups.nonWork && state.categoryGroups.nonWork.includes(c)) || (state.categories.includes('🏖️ 非工作') ? '🏖️ 非工作' : state.categories[0] || '🏡 非工作');
-            }
-            state.tasks.push({ id: Date.now(), name: '☕ 休息充電', category: defaultCat, workMode: mode, timeSpent: state.restTime, status: 'completed', completedAt: Date.now(), isRestLog: true, dayType: 'auto', valueType: 'recovery', activity: '💺 休息', customMarkers: [] });
-            state.restTime = 0; delete state.restWorkMode; showToast('⚡ 休息結束，已獨立記錄時數');
+        if (!state.lastRestTick) {
+            state.isResting = false;
+            const btn = document.getElementById('btn-rest-toggle');
+            if (btn) { btn.style.background = "var(--success-color)"; btn.innerText = "☕ 進入休息模式"; }
+            return;
         }
-        saveData(); renderAll(); updateQuickButtonsUI();
+
+        const overlay = document.createElement('div'); overlay.className = 'modal-overlay active'; overlay.style.zIndex = '10000';
+        const card = document.createElement('div'); card.className = 'modal-card'; card.style.maxWidth = '400px'; card.style.textAlign = 'center';
+        card.innerHTML = `
+            <div class="modal-header" style="margin-bottom:15px;"><h3 style="color:var(--primary-color); font-size:20px;">☕ 休息結束</h3><p style="margin-top:10px; font-size:15px; color:var(--text-color);">這段休息是屬於工作還是非工作呢？</p></div>
+            <div style="display:flex; gap:10px; justify-content:center; margin-top:25px;">
+                <button id="rest-btn-work" class="btn" style="flex:1; background:#2196F3; color:white; font-size:16px; padding:12px; border:none; cursor:pointer; border-radius:6px; transition:opacity 0.2s;">💼 工作休息</button>
+                <button id="rest-btn-nonwork" class="btn" style="flex:1; background:#FF9800; color:white; font-size:16px; padding:12px; border:none; cursor:pointer; border-radius:6px; transition:opacity 0.2s;">🏡 非工作休息</button>
+            </div>
+        `;
+        overlay.appendChild(card); document.body.appendChild(overlay);
+
+        const handleChoice = (mode) => {
+            state.restTime += Math.floor((Date.now() - state.lastRestTick) / 1000);
+            state.isResting = false; delete state.lastRestTick;
+            
+            if (state.restTime > 0) {
+                let defaultCat;
+                if (mode === 'work') {
+                    defaultCat = state.categories.find(c => !state.categoryGroups || (state.categoryGroups.work && state.categoryGroups.work.includes(c))) || state.categories[0] || '💼 工作';
+                } else {
+                    defaultCat = state.categories.find(c => state.categoryGroups && state.categoryGroups.nonWork && state.categoryGroups.nonWork.includes(c)) || (state.categories.includes('🏖️ 非工作') ? '🏖️ 非工作' : state.categories[0] || '🏡 非工作');
+                }
+                state.tasks.push({ id: Date.now(), name: '☕ 休息充電', category: defaultCat, workMode: mode, timeSpent: state.restTime, status: 'completed', completedAt: Date.now(), isRestLog: true, dayType: 'auto', valueType: 'recovery', activity: '💺 休息', customMarkers: [] });
+                state.restTime = 0; delete state.restWorkMode; showToast('⚡ 休息結束，已獨立記錄時數');
+            }
+            
+            overlay.classList.remove('active'); setTimeout(()=>overlay.remove(), 300);
+            const btn = document.getElementById('btn-rest-toggle');
+            if (btn) { btn.style.background = "var(--success-color)"; btn.innerText = "☕ 進入休息模式"; }
+            saveData(); renderAll(); updateQuickButtonsUI();
+        };
+
+        document.getElementById('rest-btn-work').onclick = () => handleChoice('work');
+        document.getElementById('rest-btn-nonwork').onclick = () => handleChoice('non-work');
     }
 
     function renderCreationMarkerCheckboxes() {
@@ -2130,7 +2402,20 @@
         return { text: text.replace(/\s+/g, ' ').trim(), target, date, activity, corpEntity };
     }
 
-    function createTask() {
+    function openSession(task, now) {
+        if (!task.sessions) task.sessions = [];
+        if (task.sessions.length > 0 && !task.sessions[task.sessions.length - 1].end) return;
+        task.sessions.push({ start: now, end: null });
+    }
+
+    function closeSession(task, now) {
+        if (task.sessions && task.sessions.length > 0) {
+            let lastSess = task.sessions[task.sessions.length - 1];
+            if (!lastSess.end) lastSess.end = now;
+        }
+    }
+
+    function createNewTask(text) {
         const inputEl = document.getElementById('task-input'); const notesEl = document.getElementById('task-notes-input');
         const raw = inputEl.value.trim(); if (!raw) return;
         document.getElementById('autocomplete-dropdown').style.display = 'none';
@@ -2156,8 +2441,8 @@
             if(activeQT) { pauseTask(activeQT.id); openQuickFinishModal(activeQT.id); }
 
             const now = Date.now();
-            state.tasks.forEach(t => { if(t.status === 'active') { if (t.lastTick) t.timeSpent = Number(t.timeSpent || 0) + Math.floor((now - t.lastTick) / 1000); t.status = 'paused'; delete t.lastTick; state.lastPausedTaskId = t.id; } });
-            if (state.isResting) stopRest(); newTask.status = 'active'; newTask.lastTick = now;
+            state.tasks.forEach(t => { if(t.status === 'active') { if (t.lastTick) t.timeSpent = Number(t.timeSpent || 0) + Math.floor((now - t.lastTick) / 1000); t.status = 'paused'; closeSession(t, now); delete t.lastTick; state.lastPausedTaskId = t.id; } });
+            if (state.isResting) stopRest(); newTask.status = 'active'; newTask.lastTick = now; openSession(newTask, now);
         }
 
         state.tasks.push(newTask);
@@ -2173,12 +2458,12 @@
         if (state.isResting) stopRest();
         const now = Date.now();
         state.tasks.forEach(t => { 
-            if (t.status === 'active' && t.id !== id) { if (t.lastTick) t.timeSpent = Number(t.timeSpent || 0) + Math.floor((now - t.lastTick) / 1000); t.status = 'paused'; delete t.lastTick; state.lastPausedTaskId = t.id; } 
-            if (t.id === id) { t.status = 'active'; t.lastTick = now; } 
+            if (t.status === 'active' && t.id !== id) { if (t.lastTick) t.timeSpent = Number(t.timeSpent || 0) + Math.floor((now - t.lastTick) / 1000); t.status = 'paused'; closeSession(t, now); delete t.lastTick; state.lastPausedTaskId = t.id; } 
+            if (t.id === id) { t.status = 'active'; t.lastTick = now; openSession(t, now); } 
         });
         saveData(); renderAll(); updateQuickButtonsUI();
     }
-    function pauseTask(id) { const task = state.tasks.find(t => t.id === id); if (task) { if (task.lastTick) task.timeSpent = Number(task.timeSpent || 0) + Math.floor((Date.now() - task.lastTick) / 1000); task.status = 'paused'; delete task.lastTick; } saveData(); renderAll(); updateQuickButtonsUI(); }
+    function pauseTask(id) { const task = state.tasks.find(t => t.id === id); if (task) { const now = Date.now(); if (task.lastTick) task.timeSpent = Number(task.timeSpent || 0) + Math.floor((now - task.lastTick) / 1000); task.status = 'paused'; closeSession(task, now); delete task.lastTick; } saveData(); renderAll(); updateQuickButtonsUI(); }
     function manualAdjust(id, mins) { const task = state.tasks.find(t => t.id === id); if (task) { task.timeSpent = Math.max(0, Number(task.timeSpent || 0) + (mins * 60)); saveData(); renderAll(); } }
     function deleteTask(id) { showConfirm('刪除任務', '確定要刪除此紀錄嗎？此動作無法復原。', () => { state.tasks = state.tasks.filter(t => t.id !== id); if(state.lastPausedTaskId === id) state.lastPausedTaskId = null; saveData(); renderAll(); updateQuickButtonsUI(); showToast('🗑️ 已刪除任務'); }); }
     function togglePin(id) { const task = state.tasks.find(t => t.id === id); if(task) { task.isPinned = !task.isPinned; saveData(); renderAll(); } }
@@ -2212,6 +2497,20 @@
         document.getElementById('f-notes').value = task.notes || '';
         document.getElementById('f-flow-notes').value = task.flowNotes || '';
         const fCorp = document.getElementById('f-corporate'); fCorp.innerHTML = '<option value="">無</option>'; state.corporateEntities.forEach(c => fCorp.innerHTML += `<option value="${c}">${c}</option>`); fCorp.value = task.corporateEntity || '';
+        
+        let isSleep = defaultName.includes('睡') || (task.activity || '').includes('睡');
+        if (isSleep) {
+            state.selectedFlowValueType = 'recovery';
+        }
+        ['investment', 'maintenance', 'consumption', 'unclassified'].forEach(v => {
+            const btn = document.getElementById(`f-v-${v}`);
+            if (btn) {
+                btn.disabled = isSleep;
+                btn.style.opacity = isSleep ? '0.3' : '1';
+                btn.style.cursor = isSleep ? 'not-allowed' : 'pointer';
+            }
+        });
+        
         updateModalVisuals(); renderFlowActivityButtons(); document.getElementById('flow-modal').classList.add('active');
     }
     function closeCompletionModal() { document.getElementById('flow-modal').classList.remove('active'); state.currentFlowTaskId = null; }
@@ -2229,7 +2528,8 @@
         container.innerHTML = getCurrentActivityTypes().map(act => `<button class="flow-btn ${state.selectedFlowActivity === act ? 'selected' : 'btn-val-later'}" onclick="state.selectedFlowActivity='${act}'; renderFlowActivityButtons();">${act}</button>`).join('');
     }
     function updateModalVisuals() {
-        ['investment', 'maintenance', 'consumption', 'unclassified'].forEach(v => { document.getElementById(`f-v-${v}`).classList.remove('selected'); }); document.getElementById(`f-v-${state.selectedFlowValueType}`).classList.add('selected');
+        ['investment', 'maintenance', 'consumption', 'recovery', 'unclassified'].forEach(v => { const el = document.getElementById(`f-v-${v}`); if(el) el.classList.remove('selected'); }); 
+        const selEl = document.getElementById(`f-v-${state.selectedFlowValueType}`); if(selEl) selEl.classList.add('selected');
         ['auto', 'weekday', 'weekend'].forEach(d => { document.getElementById(`f-d-${d}`).classList.remove('selected'); }); document.getElementById(`f-d-${state.selectedFlowDayType}`).classList.add('selected');
         
         [0, 1, 2, 3].forEach(l => { const el = document.getElementById(`f-wl-${l}`); if (el) el.classList.remove('selected'); });
@@ -2275,14 +2575,18 @@
         task.notes = document.getElementById('f-notes').value.trim(); task.corporateEntity = document.getElementById('f-corporate').value; task.activity = state.selectedFlowActivity;
 
         if (state.currentFlowMode === 'offwork') {
-            const historyLog = { ...task, id: Date.now(), status: 'completed', completedAt: Date.now(), valueType: state.selectedFlowValueType, dayType: state.selectedFlowDayType, isPartial: true, wealthLevel: state.selectedFlowWealthLevel, wealthTypes: state.selectedFlowWealthTypes };
+            const now = Date.now();
+            if (task.status === 'active') closeSession(task, now);
+            const historyLog = { ...task, id: now, status: 'completed', completedAt: now, valueType: state.selectedFlowValueType, dayType: state.selectedFlowDayType, isPartial: true, wealthLevel: state.selectedFlowWealthLevel, wealthTypes: state.selectedFlowWealthTypes };
             applySleepEngine(historyLog);
-            state.tasks.push(historyLog); task.timeSpent = 0; task.status = 'pending'; task.createdAt = Date.now(); task.wealthLevel = state.selectedFlowWealthLevel; task.wealthTypes = state.selectedFlowWealthTypes;
+            state.tasks.push(historyLog); task.timeSpent = 0; task.status = 'pending'; task.createdAt = now; delete task.sessions; task.wealthLevel = state.selectedFlowWealthLevel; task.wealthTypes = state.selectedFlowWealthTypes;
             if (state.lastPausedTaskId === task.id) state.lastPausedTaskId = null; showToast('🌙 已執行下班結算，進度已推進');
         } else {
+            const now = Date.now();
+            if (task.status === 'active') closeSession(task, now);
             task.status = 'completed'; task.valueType = state.selectedFlowValueType; task.dayType = state.selectedFlowDayType; task.wealthLevel = state.selectedFlowWealthLevel; task.wealthTypes = state.selectedFlowWealthTypes;
             applySleepEngine(task);
-            if (!task.completedAt) task.completedAt = Date.now(); showToast('✅ 任務已全數清算完畢');
+            if (!task.completedAt) task.completedAt = now; showToast('✅ 任務已全數清算完畢');
         }
 
         document.getElementById('flow-modal').classList.remove('active');
@@ -2292,6 +2596,76 @@
             if (pausedTask && pausedTask.status !== 'completed') setTimeout(() => { showConfirm('恢復前置任務', `【緊急完成】是否立刻自動恢復前一項工作：「${pausedTask.name}」？`, () => { startTask(state.lastPausedTaskId); state.lastPausedTaskId = null; saveData(); renderAll(); }); }, 400);
         }
         updateQuickButtonsUI(); saveData(); renderAll();
+    }
+
+    let currentRetroDateStr = '';
+    function openRetroEntryModal(startMs, endMs) {
+        currentRetroDateStr = document.getElementById('calendar-date-picker') ? document.getElementById('calendar-date-picker').value : formatDateString(new Date());
+        
+        let startD = new Date(startMs);
+        let endD = new Date(endMs);
+        
+        document.getElementById('retro-start').value = startD.toLocaleTimeString('zh-TW', {hour12:false, hour:'2-digit', minute:'2-digit'});
+        document.getElementById('retro-end').value = endD.toLocaleTimeString('zh-TW', {hour12:false, hour:'2-digit', minute:'2-digit'});
+        
+        document.getElementById('retro-name').value = '';
+        document.getElementById('retro-notes').value = '';
+        document.getElementById('retro-mode').value = 'work';
+        updateRetroActivityOptions();
+        document.getElementById('retro-entry-modal').classList.add('active');
+    }
+
+    function closeRetroEntryModal() {
+        document.getElementById('retro-entry-modal').classList.remove('active');
+    }
+
+    function updateRetroActivityOptions() {
+        const mode = document.getElementById('retro-mode').value;
+        const actSelect = document.getElementById('retro-activity');
+        let allowedActs = Array.isArray(state.activityTypes) ? state.activityTypes : (state.activityTypes[mode] || []);
+        actSelect.innerHTML = '<option value="">無</option>' + allowedActs.map(a => `<option value="${a}">${a}</option>`).join('');
+    }
+
+    function submitRetroEntry() {
+        const startStr = document.getElementById('retro-start').value;
+        const endStr = document.getElementById('retro-end').value;
+        let name = document.getElementById('retro-name').value.trim() || '補登紀錄';
+        const mode = document.getElementById('retro-mode').value;
+        const activity = document.getElementById('retro-activity').value;
+        const notes = document.getElementById('retro-notes').value.trim();
+
+        if (!startStr || !endStr) return showToast("請輸入起訖時間");
+        
+        const datePrefix = currentRetroDateStr + 'T';
+        const startMs = new Date(datePrefix + startStr + ':00').getTime();
+        let endMs = new Date(datePrefix + endStr + ':00').getTime();
+        
+        if (endMs < startMs) endMs += 24 * 3600 * 1000;
+        
+        const timeSpent = Math.max(0, Math.floor((endMs - startMs) / 1000));
+        if (timeSpent === 0) return showToast("時間區間不能為 0");
+
+        const newTask = {
+            id: Date.now(),
+            name: name,
+            notes: notes,
+            status: 'completed',
+            createdAt: startMs,
+            completedAt: endMs,
+            timeSpent: timeSpent,
+            category: mode === 'work' ? (state.categories.find(c => !state.categoryGroups || (state.categoryGroups.work && state.categoryGroups.work.includes(c))) || state.categories[0] || '💼 工作') : (state.categories.find(c => state.categoryGroups && state.categoryGroups.nonWork && state.categoryGroups.nonWork.includes(c)) || (state.categories.includes('🏡 非工作') ? '🏡 非工作' : state.categories[0] || '🏡 非工作')),
+            activity: activity,
+            workMode: mode,
+            valueType: 'unclassified',
+            dayType: 'auto',
+            customMarkers: []
+        };
+        
+        state.tasks.push(newTask);
+        saveData();
+        renderAll();
+        closeRetroEntryModal();
+        showToast('✅ 已補登未紀錄時段');
     }
 
     function openHistoryEdit(id) {
@@ -2387,6 +2761,7 @@
         
         const markers = Array.from(document.querySelectorAll('.edit-hist-marker-cb:checked')).map(cb => cb.value);
         task.customMarkers = markers;
+        delete task.sessions; // 歷史編輯後清除 sessions，強制走 fallback，確保時數修改能直接反映為連續區塊
         
         applySleepEngine(task);
         
@@ -3408,12 +3783,28 @@ if (viewName === 'matrix') renderMatrixBoard();
         
         const top3Container = document.getElementById('lw-top3-chart');
         if (top3Container) {
-            weekTasks.sort((a,b) => (b.timeSpent||0) - (a.timeSpent||0));
-            const top3 = weekTasks.slice(0, 3);
+            const validTasks = weekTasks.filter(t => {
+                let name = t.name || '';
+                let act = t.activity || '';
+                return t.valueType !== 'recovery' && !name.includes('睡眠') && !act.includes('睡眠') && !name.includes('休息') && !act.includes('休息');
+            });
+            
+            const aggregatedTasks = {};
+            validTasks.forEach(t => {
+                let key = t.name || t.activity || '未命名任務';
+                if (!aggregatedTasks[key]) {
+                    aggregatedTasks[key] = { name: key, timeSpent: 0, valueType: t.valueType, wealthTypes: t.wealthTypes };
+                }
+                aggregatedTasks[key].timeSpent += (t.timeSpent || 0);
+            });
+            
+            const validTop3Tasks = Object.values(aggregatedTasks);
+            validTop3Tasks.sort((a,b) => (b.timeSpent||0) - (a.timeSpent||0));
+            const top3 = validTop3Tasks.slice(0, 3);
             if (top3.length === 0) {
                 top3Container.innerHTML = '<div style="font-size:12px; color:var(--muted-text); text-align:center;">無本週耗時資料</div>';
             } else {
-                let top3Html = '';
+                let top3Html = '<div style="font-size:11px; color:var(--muted-text); margin-bottom:10px; display:flex; gap:8px;"><span>屬性顏色：</span><span style="color:#4CAF50">■ 投資</span><span style="color:#1A73E8">■ 維持</span><span style="color:#E65C5C">■ 消耗</span><span style="color:#9E9E9E">■ 未分類</span></div>';
                 const maxT = Math.max(...top3.map(t => t.timeSpent || 0), 1);
                 top3.forEach((t, i) => {
                     const hrs = (t.timeSpent || 0) / 3600;
@@ -3439,6 +3830,164 @@ if (viewName === 'matrix') renderMatrixBoard();
             }
         }
         
+            let totalSleepSec = 0;
+            let totalWorkSec = 0;
+            let totalWorkRestSec = 0;
+            
+            let valTypeSec = { investment: 0, maintenance: 0, consumption: 0, recovery: 0, unclassified: 0 };
+            let wealthScores = { '金錢': 0, '健康': 0, '人際': 0, '目標': 0, '時間': 0 };
+            
+            let coreOutputSec = 0;
+            let totalExerciseSec = 0;
+            let exerciseDays = new Set();
+            
+            let nonWorkSec = 0;
+            let nonWorkInvestSec = 0;
+            
+            let weekendTotalSec = 0;
+            let weekendNonWorkSec = 0;
+            
+            weekTasks.forEach(t => {
+                let sec = t.timeSpent || 0;
+                let cAt = new Date(t.completedAt || t.createdAt);
+                let day = cAt.getDay();
+                let isWeekend = (day === 0 || day === 6);
+                
+                let isWork = (t.category === '💼 工作');
+                
+                if (t.valueType) valTypeSec[t.valueType] = (valTypeSec[t.valueType] || 0) + sec;
+                
+                if ((t.activity && t.activity.includes('睡')) || (t.name && t.name.includes('睡'))) {
+                    totalSleepSec += sec;
+                }
+                
+                if (isWork) {
+                    totalWorkSec += sec;
+                    if (t.valueType === 'recovery' || (t.activity && t.activity.includes('休息'))) {
+                        totalWorkRestSec += sec;
+                    }
+                    if (t.activity && t.activity.includes('核心產出')) {
+                        coreOutputSec += sec;
+                    }
+                } else {
+                    nonWorkSec += sec;
+                    if (t.valueType === 'investment') {
+                        nonWorkInvestSec += sec;
+                    }
+                }
+                
+                if (t.wealthTypes && t.wealthTypes.length > 0) {
+                    t.wealthTypes.forEach(w => {
+                        ['金錢', '健康', '人際', '目標', '時間'].forEach(key => {
+                            if (w.includes(key)) wealthScores[key] += (t.wealthLevel || 0);
+                        });
+                    });
+                }
+                
+                if ((t.activity && t.activity.includes('運動')) || (t.name && t.name.includes('運動'))) {
+                    totalExerciseSec += sec;
+                    exerciseDays.add(cAt.toDateString()); 
+                }
+                
+                if (isWeekend) {
+                    weekendTotalSec += sec;
+                    if (!isWork) weekendNonWorkSec += sec;
+                }
+            });
+            
+            let totalActualWorkSec = Math.max(0, totalWorkSec - totalWorkRestSec);
+            let totalLoggedSec = actualSec;
+            
+            let now = new Date();
+            let elapsedDays7 = 7;
+            let elapsedDays5 = 5;
+            
+            if (now >= start && now <= end) {
+                elapsedDays7 = Math.max(1, Math.ceil((now - start) / (1000 * 3600 * 24)));
+                let wDays = 0;
+                for (let d = new Date(start); d <= now; d.setDate(d.getDate() + 1)) {
+                    if (d.getDay() !== 0 && d.getDay() !== 6) wDays++;
+                }
+                elapsedDays5 = Math.max(1, wDays);
+            } else if (now < start) {
+                elapsedDays7 = 1;
+                elapsedDays5 = 1;
+            }
+            
+            let avgSleepHrs = (totalSleepSec / 3600) / elapsedDays7;
+            let avgWorkHrs = (totalWorkSec / 3600) / elapsedDays5;
+            let avgActualWorkHrs = (totalActualWorkSec / 3600) / elapsedDays5;
+            
+            let workTasksCount = weekTasks.filter(t => t.category === '💼 工作' && t.valueType !== 'recovery' && !(t.activity||'').includes('休息')).length;
+            let fragIndexMins = workTasksCount > 0 ? (totalActualWorkSec / 60) / workTasksCount : 0;
+            
+            let coreRatio = totalWorkSec > 0 ? (coreOutputSec / totalWorkSec) * 100 : 0;
+            let selfInvestRatio = nonWorkSec > 0 ? (nonWorkInvestSec / nonWorkSec) * 100 : 0;
+            let weekendDisconnect = weekendTotalSec > 0 ? (weekendNonWorkSec / weekendTotalSec) * 100 : 0;
+            
+            const deepContainer = document.getElementById('lw-deep-metrics');
+            if (deepContainer) {
+                const valMap = { investment: '🚀投資', maintenance: '⚙️維持', consumption: '🛑消耗', recovery: '☕恢復' };
+                let valHtml = '';
+                for (let k of ['investment', 'maintenance', 'consumption', 'recovery']) {
+                    let pct = totalLoggedSec > 0 ? (valTypeSec[k] / totalLoggedSec * 100).toFixed(1) : 0;
+                    valHtml += `<span style="display:inline-block; margin-right:10px;">${valMap[k]}: ${pct}%</span>`;
+                }
+                
+                let wHtml = '';
+                const wealthEmojiMap = { '金錢':'💰', '健康':'🏃', '人際':'🤝', '目標':'🎯', '時間':'⏳' };
+                for (let k in wealthScores) {
+                    wHtml += `<span style="display:inline-block; margin-right:10px; font-size:12px;" title="${k}">${wealthEmojiMap[k]||k} <strong style="color:var(--primary-color)">${wealthScores[k]}</strong></span>`;
+                }
+                
+                deepContainer.innerHTML = `
+                    <div style="font-size:11px; color:var(--muted-text); margin-bottom:8px; text-align:right;">
+                        * 依本週已過天數計算 (全週 ${elapsedDays7} 天 / 平日 ${elapsedDays5} 天)
+                    </div>
+                    <div style="margin-bottom:6px;">🛏️ <strong title="整週睡眠總時數 ÷ 全週經過天數">平均每日睡眠：</strong> <span style="color:var(--primary-color)">${avgSleepHrs.toFixed(1)}h / 日</span></div>
+                    <div style="margin-bottom:6px;">💼 <strong title="工作面向總時數 ÷ 平日經過天數">平均每日工作 (含休息)：</strong> <span style="color:var(--primary-color)">${avgWorkHrs.toFixed(1)}h / 日</span></div>
+                    <div style="margin-bottom:6px;">🎯 <strong title="(工作總時數 - 工作時休息) ÷ 平日經過天數">平均每日實際工作 (純產出)：</strong> <span style="color:var(--primary-color)">${avgActualWorkHrs.toFixed(1)}h / 日</span></div>
+                    <div style="margin-bottom:6px; margin-top:10px; border-top:1px dashed var(--border-color); padding-top:6px;">
+                        <div style="color:var(--muted-text); font-size:11px; margin-bottom:4px;">⚖️ 時間價值屬性佔比 (佔當週總紀錄時數)</div>
+                        ${valHtml}
+                    </div>
+                    <div style="margin-bottom:6px; margin-top:10px; border-top:1px dashed var(--border-color); padding-top:6px;">
+                        <div style="color:var(--muted-text); font-size:11px; margin-bottom:4px;">💎 五大財富量級總分 (各任務量級分數加總)</div>
+                        ${wHtml}
+                    </div>
+                `;
+            }
+            
+            const advContainer = document.getElementById('lw-adv-metrics');
+            if (advContainer) {
+                let fragColor = fragIndexMins < 20 ? '#E65C5C' : (fragIndexMins > 60 ? '#4CAF50' : 'var(--primary-color)');
+                let coreColor = coreRatio > 50 ? '#4CAF50' : 'var(--primary-color)';
+                
+                advContainer.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span>🏋️ <strong>當週運動：</strong></span>
+                        <span style="color:var(--primary-color)">${exerciseDays.size} 天 (共 ${(totalExerciseSec/3600).toFixed(1)}h)</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span title="當週實際工作總時數 ÷ 工作任務筆數">🧩 <strong>工作碎片化指數：</strong></span>
+                        <span style="color:${fragColor}; font-weight:bold;">${Math.round(fragIndexMins)} min/筆</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span title="「非工作」狀態下的「投資型」時數佔比">🚀 <strong>自我投資比率：</strong></span>
+                        <span style="color:var(--primary-color)">${selfInvestRatio.toFixed(1)}%</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span title="核心產出耗時 ÷ 總工作耗時">🎯 <strong>核心產出佔比：</strong></span>
+                        <span style="color:${coreColor}">${coreRatio.toFixed(1)}%</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                        <span title="週末非工作時數 ÷ 週末總紀錄時數">🏖️ <strong>假日脫離率：</strong></span>
+                        <span style="color:var(--primary-color)">${weekendDisconnect.toFixed(1)}%</span>
+                    </div>
+                `;
+            }
+        
+
         if(!state.settings.weekPlans) state.settings.weekPlans = {};
         let plan = state.settings.weekPlans[weekIndex] || { expectedHrs: 40, notes: "" };
         
@@ -3563,28 +4112,114 @@ if (viewName === 'matrix') renderMatrixBoard();
                         segments.push({ task: t, start: segStart, end: segEnd });
                     }
                 });
+            } else {
+                let extra = (t.status === 'active' && t.lastTick) ? Math.floor((Date.now() - t.lastTick) / 1000) : 0;
+                let totalSec = (t.timeSpent || 0) + extra;
+                if (totalSec > 0 || t.status === 'active') {
+                    let ed = t.completedAt;
+                    if (!ed) {
+                        if (t.status === 'active') ed = Date.now();
+                        else ed = t.createdAt + (totalSec * 1000);
+                    }
+                    // 沒有 sessions 時（舊任務或手動新增），使用真實耗時反推，避免因為建立時間過早（Pending）而畫滿整個時間軸
+                    let st = ed - (totalSec * 1000);
+                    
+                    if (ed > dayStart && st < dayEnd) {
+                        segments.push({ task: t, start: Math.max(st, dayStart), end: Math.min(ed, dayEnd) });
+                    }
+                }
             }
         });
         
+        segments.sort((a,b) => a.start - b.start);
+        let currentT = dayStart;
+        let limitT = (dateStr === formatDateString(new Date())) ? Math.min(dayEnd, Date.now()) : dayEnd;
+        let newSegments = [];
+        segments.forEach(seg => {
+            if (seg.start > currentT + 60000) {
+                newSegments.push({ task: { isUnrecorded: true, id: 'unrec', name: '' }, start: currentT, end: seg.start });
+            }
+            if (seg.end > currentT) currentT = seg.end;
+        });
+        if (currentT + 60000 < limitT) {
+            newSegments.push({ task: { isUnrecorded: true, id: 'unrec', name: '' }, start: currentT, end: limitT });
+        }
+        segments = segments.concat(newSegments);
+        
+        const getSegmentColor = (t) => {
+            if (t.isUnrecorded) return 'var(--border-color)';
+            if (t.valueType === 'sleep' || (t.activity && t.activity.includes('睡眠')) || (t.name && t.name.includes('睡眠'))) return '#163A5F';
+            if (t.workMode === 'work' && (t.valueType === 'recovery' || (t.activity && t.activity.includes('休息')))) return '#90CAF9';
+            if (t.workMode === 'non-work' && (t.valueType === 'recovery' || (t.activity && t.activity.includes('休息')))) return '#A5D6A7';
+            
+            if (t.workMode === 'work') {
+                let hash = 0; let str = t.name || '';
+                for (let i = 0; i < str.length; i++) hash = str.charCodeAt(i) + ((hash << 5) - hash);
+                return `hsl(${Math.abs(hash) % 360}, 65%, 65%)`;
+            }
+            
+            const palette = ['#FF9800', '#00BCD4', '#9C27B0', '#E91E63', '#3F51B5', '#009688', '#FFEB3B'];
+            const actColorsMap = {};
+            getAllActivityTypes().forEach((a, i) => actColorsMap[a] = palette[i % palette.length]);
+            actColorsMap['🧹 家務'] = '#666666'; actColorsMap['📖 閱讀/學習'] = '#8E44AD';
+            actColorsMap['🧑‍🤝‍🧑 社交'] = '#2D5B8A'; actColorsMap['👥 會議'] = '#2D5B8A';
+            actColorsMap['🦥 往返/通勤'] = '#757575';
+            
+            return (t.activity && actColorsMap[t.activity]) ? actColorsMap[t.activity] : 'var(--accent-color)';
+        };
+
         let timelineHTML = `
             <div style="margin: 15px 0; padding: 15px; background: var(--card-bg); border-radius: 8px; border: 1px solid var(--border-color);">
-                <div style="font-size:13px; font-weight:bold; color:var(--primary-color); margin-bottom:10px;">🕒 0~24 小時時間軸</div>
-                <div style="position: relative; height: 35px; background: var(--input-bg); border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color);">
+                <div style="font-size:13px; font-weight:bold; color:var(--primary-color); margin-bottom:10px;">🕒 時間軸 (00:00 ~ 12:00)</div>
+                <div style="position: relative; height: 35px; background: var(--input-bg); border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 5px;">
         `;
         
+        const midDay = dayStart + 12 * 3600 * 1000;
         segments.forEach(seg => {
-            let leftPct = ((seg.start - dayStart) / (24 * 3600 * 1000)) * 100;
-            let widthPct = ((seg.end - seg.start) / (24 * 3600 * 1000)) * 100;
-            let isUnrecorded = seg.task.isUnrecorded;
-            let bgColor = isUnrecorded ? 'var(--border-color)' : (seg.task.workMode === 'work' ? 'var(--primary-color)' : 'var(--accent-color)');
-            let title = isUnrecorded ? '❓ 未紀錄' : `[${new Date(seg.start).toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit'})}~${new Date(seg.end).toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit'})}] ${seg.task.name}`;
-            let hoverStyle = isUnrecorded ? 'opacity: 0.5;' : 'opacity: 0.9;';
-            
-            timelineHTML += `<div title="${title}" style="position: absolute; left: ${leftPct}%; width: ${widthPct}%; min-width: 2px; height: 100%; background: ${bgColor}; ${hoverStyle} cursor: help; border-right: 1px solid rgba(255,255,255,0.2);"></div>`;
+            if (seg.start < midDay) {
+                let drawStart = Math.max(seg.start, dayStart);
+                let drawEnd = Math.min(seg.end, midDay);
+                if (drawStart < drawEnd) {
+                    let leftPct = ((drawStart - dayStart) / (12 * 3600 * 1000)) * 100;
+                    let widthPct = ((drawEnd - drawStart) / (12 * 3600 * 1000)) * 100;
+                    let bgColor = getSegmentColor(seg.task);
+                    let title = seg.task.isUnrecorded ? '❓ 未紀錄' : `[${new Date(seg.start).toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit'})}~${new Date(seg.end).toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit'})}] ${seg.task.name}`;
+                    let hoverStyle = seg.task.isUnrecorded ? 'opacity: 0.5;' : 'opacity: 1;';
+                    let cleanName = (seg.task.name || '').replace(/[#!@]\S+/g, '').replace(/🏷️\S+/g, '').trim();
+                    let labelHTML = (!seg.task.isUnrecorded && (seg.end - seg.start) >= 3600000) ? `<span style="position:absolute; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:bold; text-shadow: 0 0 3px rgba(0,0,0,0.8); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 4px; z-index:1;">${cleanName}</span>` : '';
+                    let onclickAttr = seg.task.isUnrecorded ? `onclick="openRetroEntryModal(${seg.start}, ${seg.end})"` : `onclick="highlightDailyTask(${seg.task.id}, '${bgColor}')"`;
+                    timelineHTML += `<div title="${title}" ${onclickAttr} style="position: absolute; left: ${leftPct}%; width: ${widthPct}%; min-width: 2px; height: 100%; background: ${bgColor}; ${hoverStyle} cursor: pointer; border-right: 1px solid rgba(255,255,255,0.2);">${labelHTML}</div>`;
+                }
+            }
         });
         
+        timelineHTML += `</div><div style="display:flex; justify-content:space-between; margin-bottom: 25px; font-size:10px; color:var(--muted-text);">`;
+        for(let i=0; i<=12; i+=2) { timelineHTML += `<span>${String(i).padStart(2,'0')}:00</span>`; }
+        timelineHTML += `</div>`;
+
+        timelineHTML += `
+                <div style="font-size:13px; font-weight:bold; color:var(--primary-color); margin-bottom:10px;">🕒 時間軸 (12:00 ~ 24:00)</div>
+                <div style="position: relative; height: 35px; background: var(--input-bg); border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); margin-bottom: 5px;">
+        `;
+        segments.forEach(seg => {
+            if (seg.end > midDay) {
+                let drawStart = Math.max(seg.start, midDay);
+                let drawEnd = Math.min(seg.end, dayEnd);
+                if (drawStart < drawEnd) {
+                    let leftPct = ((drawStart - midDay) / (12 * 3600 * 1000)) * 100;
+                    let widthPct = ((drawEnd - drawStart) / (12 * 3600 * 1000)) * 100;
+                    let bgColor = getSegmentColor(seg.task);
+                    let title = seg.task.isUnrecorded ? '❓ 未紀錄' : `[${new Date(seg.start).toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit'})}~${new Date(seg.end).toLocaleTimeString('zh-TW',{hour12:false,hour:'2-digit',minute:'2-digit'})}] ${seg.task.name}`;
+                    let hoverStyle = seg.task.isUnrecorded ? 'opacity: 0.5;' : 'opacity: 1;';
+                    let cleanName = (seg.task.name || '').replace(/[#!@]\S+/g, '').replace(/🏷️\S+/g, '').trim();
+                    let labelHTML = (!seg.task.isUnrecorded && (seg.end - seg.start) >= 3600000) ? `<span style="position:absolute; width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:bold; text-shadow: 0 0 3px rgba(0,0,0,0.8); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 4px; z-index:1;">${cleanName}</span>` : '';
+                    let onclickAttr = seg.task.isUnrecorded ? `onclick="openRetroEntryModal(${seg.start}, ${seg.end})"` : `onclick="highlightDailyTask(${seg.task.id}, '${bgColor}')"`;
+                    timelineHTML += `<div title="${title}" ${onclickAttr} style="position: absolute; left: ${leftPct}%; width: ${widthPct}%; min-width: 2px; height: 100%; background: ${bgColor}; ${hoverStyle} cursor: pointer; border-right: 1px solid rgba(255,255,255,0.2);">${labelHTML}</div>`;
+                }
+            }
+        });
         timelineHTML += `</div><div style="display:flex; justify-content:space-between; margin-top:5px; font-size:10px; color:var(--muted-text);">`;
-        for(let i=0; i<=24; i+=4) { timelineHTML += `<span>${String(i).padStart(2,'0')}:00</span>`; }
+        for(let i=12; i<=24; i+=2) { timelineHTML += `<span>${String(i).padStart(2,'0')}:00</span>`; }
         timelineHTML += `</div></div>`;
         
         let filtered = state.tasks.filter(t => formatDateString(new Date(t.completedAt || t.createdAt || Date.now())) === dateStr && !(t.customMarkers || []).some(m => m.includes('隨手記') || m.includes('參考資料')) && (t.timeSpent > 0 || t.status === 'active'));
@@ -3598,7 +4233,7 @@ if (viewName === 'matrix') renderMatrixBoard();
         filtered.forEach(t => {
             let isUnrecorded = t.isUnrecorded;
             listHTML += `
-                <div class="task-item" style="background:var(--input-bg); padding:12px 15px; flex-direction: row; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); ${isUnrecorded ? 'opacity:0.6;' : ''}">
+                <div id="daily-task-${t.id}" class="task-item" style="background:var(--input-bg); padding:12px 15px; flex-direction: row; justify-content: space-between; align-items: center; border: 1px solid var(--border-color); border-left: 4px solid ${getSegmentColor(t)}; transition: all 0.3s ease; ${isUnrecorded ? 'opacity:0.6;' : ''}">
                     <div style="display:flex; flex-direction:column; gap:4px;">
                         <div style="font-weight:600; font-size:14px; color:var(--text-color);">${formatTaskName(t.name)}</div>
                         <div style="font-size:11px; color:var(--muted-text);">
@@ -3618,6 +4253,21 @@ if (viewName === 'matrix') renderMatrixBoard();
         
         container.innerHTML = timelineHTML + listHTML;
     }
+
+    window.highlightDailyTask = function(taskId, color) {
+        const el = document.getElementById(`daily-task-${taskId}`);
+        if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.style.background = color;
+            el.style.transform = 'scale(1.02)';
+            
+            // Revert after 1.5s
+            setTimeout(() => {
+                el.style.background = 'var(--input-bg)';
+                el.style.transform = 'none';
+            }, 1500);
+        }
+    };
 
     function exportDailyCSV(dateStr) {
         const dayStart = new Date(`${dateStr}T00:00:00`).getTime();
@@ -3811,6 +4461,12 @@ if (viewName === 'matrix') renderMatrixBoard();
         document.getElementById('qs-edit-mode').value = qb ? qb.mode : 'both';
         document.getElementById('qs-edit-color').value = qb ? qb.color : '#1A73E8';
         
+        document.getElementById('qs-edit-valType').value = qb && qb.valType ? qb.valType : 'unclassified';
+        document.getElementById('qs-edit-wealthLevel').value = qb && qb.wealthLevel !== undefined ? qb.wealthLevel : '0';
+        document.querySelectorAll('.qs-edit-wt-cb').forEach(cb => {
+            cb.checked = qb && qb.wealthTypes ? qb.wealthTypes.includes(cb.value) : false;
+        });
+        
         let allTags = new Set();
         state.tagGroups.forEach(tg => tg.tags.forEach(t => allTags.add(t)));
         const tagDatalist = document.getElementById('qs-edit-tag-list');
@@ -3871,6 +4527,9 @@ if (viewName === 'matrix') renderMatrixBoard();
         const tag = document.getElementById('qs-edit-tag').value.trim().replace(/^#/, '');
         const mode = document.getElementById('qs-edit-mode').value;
         const color = document.getElementById('qs-edit-color').value;
+        const valType = document.getElementById('qs-edit-valType').value;
+        const wealthLevel = parseInt(document.getElementById('qs-edit-wealthLevel').value);
+        const wealthTypes = Array.from(document.querySelectorAll('.qs-edit-wt-cb:checked')).map(cb => cb.value);
         
         if(!name || !desc) { showToast('請填寫顯示文字與預設任務名稱'); return; }
         
@@ -3893,6 +4552,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             if (qb) {
                 qb.name = name; qb.defaultName = desc; qb.definition = def; qb.tag = tag;
                 qb.mode = mode; qb.color = color; qb.activity = act;
+                qb.valType = valType; qb.wealthLevel = wealthLevel; qb.wealthTypes = wealthTypes;
                 if (mode === 'both') {
                     qb.activityWork = actWork; qb.activityNw = actNw;
                 } else {
@@ -3901,7 +4561,7 @@ if (viewName === 'matrix') renderMatrixBoard();
             }
         } else {
             const id = 'qs-' + Date.now();
-            let newQb = { id, name, defaultName: desc, definition: def, tag, activity: act, mode, color, valType: 'maintenance' };
+            let newQb = { id, name, defaultName: desc, definition: def, tag, activity: act, mode, color, valType, wealthLevel, wealthTypes };
             if (mode === 'both') {
                 newQb.activityWork = actWork; newQb.activityNw = actNw;
             }
@@ -3950,7 +4610,7 @@ if (viewName === 'matrix') renderMatrixBoard();
     function restoreDefaultMarkers() { showConfirm('恢復預設', '確定要將勾選標示恢復為預設值嗎？這將覆蓋您目前所有的自訂標示。', () => { state.markerTypes = ['⭐ 重要事項', '🔥 緊急事項', '🔄 重複型', '📖 學習型']; saveData(); renderCustomCatManagerPool(); renderCreationMarkerCheckboxes(); renderAnalytics(); showToast('☑️ 勾選標示已恢復預設'); }); }
     function addUserActivity() { const input = document.getElementById('new-activity-input'); const v = input.value.trim(); if(v && !getCurrentActivityTypes().includes(v)) { if (Array.isArray(state.activityTypes)) { state.activityTypes.push(v); } else { if (!state.activityTypes[state.workMode]) state.activityTypes[state.workMode] = []; state.activityTypes[state.workMode].push(v); } input.value = ''; saveData(); renderCustomCatManagerPool(); renderAnalytics(); showToast('➕ 新增成功'); } }
     function removeUserActivity(v) { showConfirm('刪除', `確定移除「${v}」？`, () => { if (Array.isArray(state.activityTypes)) { state.activityTypes = state.activityTypes.filter(a => a !== v); } else { state.activityTypes[state.workMode] = state.activityTypes[state.workMode].filter(a => a !== v); } saveData(); renderCustomCatManagerPool(); renderAnalytics(); }); }
-    function restoreDefaultActivities() { showConfirm('恢復預設', '確定要將型態恢復為預設值嗎？這將覆蓋您目前所有的自訂型態。', () => { if(Array.isArray(state.activityTypes)) state.activityTypes = { work: state.activityTypes, 'non-work': [] }; if (state.workMode === 'work') { state.activityTypes.work = ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核', '🚌 通勤']; } else { state.activityTypes['non-work'] = ['🎮 休閒', '📖 閱讀', '💪 運動', '🧹 家務', '🧑‍🤝‍🧑 社交', '🦥 往返']; } saveData(); renderCustomCatManagerPool(); renderAnalytics(); showToast('🎭 型態已恢復預設'); }); }
+    function restoreDefaultActivities() { showConfirm('恢復預設', '確定要將型態恢復為預設值嗎？這將覆蓋您目前所有的自訂型態。', () => { if(Array.isArray(state.activityTypes)) state.activityTypes = { work: state.activityTypes, 'non-work': [] }; if (state.workMode === 'work') { state.activityTypes.work = ['🎯 核心產出', '📋 盤點', '📊 閱讀資料', '🐒 偷懶', '💺 休息', '📧 行政', '👥 會議/討論', '🔄 覆核', '🚌 通勤']; } else { state.activityTypes['non-work'] = ['🎮 休閒', '📖 閱讀', '💪 運動', '🧹 家務', '🚰 盥洗', '🧑‍🤝‍🧑 社交', '🦥 往返', '🛏️ 睡眠']; } saveData(); renderCustomCatManagerPool(); renderAnalytics(); showToast('🎭 型態已恢復預設'); }); }
     function addVendorEntity() { const input = document.getElementById('new-vendor-input'); const v = input.value.trim(); if(!state.vendorEntities) state.vendorEntities = []; if(v && !state.vendorEntities.includes(v)) { state.vendorEntities.push(v); input.value = ''; saveData(); renderCustomCatManagerPool(); showToast('➕ 新增廠商'); } }
     function removeVendorEntity(v) { showConfirm('刪除', `確定要刪除「${v}」嗎？`, () => { state.vendorEntities = state.vendorEntities.filter(c => c !== v); saveData(); renderCustomCatManagerPool(); }); }
     function addCorporateEntity() { const input = document.getElementById('new-corporate-input'); const v = input.value.trim(); const type = document.getElementById('new-corp-type') ? document.getElementById('new-corp-type').value : 'external'; if(v && !state.corporateEntities.includes(v)) { state.corporateEntities.push(v); state.targetGroups[type].push(v); input.value = ''; saveData(); renderCustomCatManagerPool(); showToast('➕ 新增對象成功'); } }
@@ -4039,16 +4699,22 @@ if (viewName === 'matrix') renderMatrixBoard();
         let valEmojiMap = { investment: '🚀', maintenance: '⚙️', consumption: '🛑', recovery: '☕', unclassified: '👤' }; let valEmojiTitleMap = { investment: '投資型', maintenance: '維持型', consumption: '消耗型', recovery: '恢復型', unclassified: '未分類' };
 
         let totalMins = 0;
+        let totalWealthLevel = 0;
+        let htmlRows = [];
         dataset.forEach(t => {
             let mins = Math.round((t.timeSpent || 0) / 60);
             totalMins += mins;
+            totalWealthLevel += (t.wealthLevel || 0);
             let actualDate = formatDateString(new Date(t.completedAt || t.createdAt || Date.now())); let vType = t.valueType || 'unclassified';
             let valEmoji = `<span style="font-size:16px; cursor:help;" title="${valEmojiTitleMap[vType] || '未分類'}">${valEmojiMap[vType] || '👤'}</span>`;
             let markerEmojis = (t.customMarkers || []).map(m => `<span style="font-size:14px; cursor:help;" title="${m}">${m ? m.split(' ')[0] : ''}</span>`).join(' ');
             let catName = t.category || '💼 工作'; let catEmoji = `<span style="font-size:16px; cursor:help;" title="${catName}">${catName ? Array.from(catName)[0] : '💼'}</span>`;
             let dayEmoji = isTaskWeekday(t) ? `<span style="font-size:16px; cursor:help;" title="平日">🏢</span>` : `<span style="font-size:16px; cursor:help;" title="假日">🏖️</span>`;
             
-            tbody.innerHTML += `
+            const wealthEmojiMap = { '金錢':'💰', '健康':'🏃', '人際':'🤝', '目標':'🎯', '時間':'⏳' };
+            let wealthEmojis = (t.wealthTypes || []).map(w => `<span style="font-size:16px; cursor:help;" title="${w}">${wealthEmojiMap[w] || w}</span>`).join('');
+            
+            htmlRows.push(`
                 <tr>
                     <td>${actualDate}</td>
                     <td>
@@ -4065,6 +4731,8 @@ if (viewName === 'matrix') renderMatrixBoard();
                     <td style="text-align:center;">${valEmoji}</td>
                     <td style="text-align:center;">${catEmoji}</td>
                     <td style="text-align:center;">${dayEmoji}</td>
+                    <td style="text-align:center; font-size:14px;">${wealthEmojis}</td>
+                    <td style="text-align:center; font-family:monospace; font-weight:bold;">${t.wealthLevel || 0}</td>
                     <td>
                         <div style="display:flex; gap: 4px; flex-wrap:wrap;">
                             <button class="btn btn-edit" style="padding:4px 8px; font-size:11px;" onclick="openHistoryEdit(${t.id})">✏️</button>
@@ -4073,16 +4741,19 @@ if (viewName === 'matrix') renderMatrixBoard();
                         </div>
                     </td>
                 </tr>
-            `;
+            `);
         });
         
-        tbody.innerHTML += `
+        htmlRows.push(`
             <tr style="background-color: var(--highlight-bg);">
-                <td colspan="2" style="text-align: right; font-weight: bold; padding-right: 15px; color: var(--secondary-color);">目前列表總計耗時：</td>
+                <td colspan="2" style="text-align: right; font-weight: bold; padding-right: 15px; color: var(--secondary-color);">目前列表總計：</td>
                 <td style="font-family: monospace; font-weight: 700; color: var(--primary-color); font-size: 14px;">${totalMins} 分</td>
-                <td colspan="4"></td>
+                <td colspan="4" style="text-align: right; font-weight: bold; padding-right: 15px; color: var(--secondary-color);">總量級分數：</td>
+                <td style="text-align: center; font-family: monospace; font-weight: 700; color: var(--primary-color); font-size: 14px;">${totalWealthLevel}</td>
+                <td></td>
             </tr>
-        `;
+        `);
+        tbody.innerHTML = htmlRows.join('');
     }
 
     function createSVGPieChart(dataArray, colorMap) {
